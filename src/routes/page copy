@@ -1,0 +1,239 @@
+    <header class="sticky top-0 z-10 bg-white/90 backdrop-blur border-b border-gray-200">
+      <div class="max-w-7xl mx-auto px-4 py-4 flex items-center gap-3">
+        <div class="h-9 w-9 rounded-xl bg-indigo-600/10 ring-1 ring-indigo-600/20 grid place-items-center text-indigo-700">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none">
+            <path d="M12 3l8 4.5v9L12 21l-8-4.5v-9L12 3z" stroke="currentColor" stroke-width="1.5"/>
+            <path d="M12 8v8M7.5 10.5l9 5" stroke="currentColor" stroke-width="1.5" opacity=".7"/>
+          </svg>
+        </div>
+        <div class="mr-auto">
+          <h1 class="font-semibold leading-none">Kanban — Tampilan Biasa</h1>
+          <p class="text-xs text-gray-500">HTML + Tailwind; tanpa interaksi/JS.</p>
+        </div>
+        <nav class="hidden sm:flex items-center gap-2 text-sm">
+          <a href="#" class="px-3 py-1.5 rounded-lg hover:bg-gray-100">Dashboard</a>
+          <a href="#" class="px-3 py-1.5 rounded-lg hover:bg-gray-100">Projects</a>
+          <a href="#" class="px-3 py-1.5 rounded-lg hover:bg-gray-100">Teams</a>
+        </nav>
+      </div>
+    </header>
+
+    <!-- Info Bar -->
+    <section class="max-w-7xl mx-auto px-4 pt-6">
+      <div class="rounded-2xl bg-white ring-1 ring-gray-200 p-4">
+        <div class="flex flex-col sm:flex-row gap-3 sm:items-center">
+          <div class="text-sm text-gray-600">
+            <strong class="font-semibold">Catatan:</strong> Ini tampilan statis.
+            Ubah konten kartu langsung di HTML.
+          </div>
+          <div class="sm:ml-auto flex flex-wrap items-center gap-2">
+            <span class="inline-flex items-center gap-1 px-2 py-1 text-xs rounded-md bg-gray-100 text-gray-700">
+              • Backlog
+            </span>
+            <span class="inline-flex items-center gap-1 px-2 py-1 text-xs rounded-md bg-blue-100 text-blue-700">
+              • In&nbsp;Progress
+            </span>
+            <span class="inline-flex items-center gap-1 px-2 py-1 text-xs rounded-md bg-amber-100 text-amber-700">
+              • Review
+            </span>
+            <span class="inline-flex items-center gap-1 px-2 py-1 text-xs rounded-md bg-emerald-100 text-emerald-700">
+              • Done
+            </span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Board -->
+    <main class="max-w-7xl mx-auto px-4 py-6">
+      <div class="grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
+        <!-- ===== Column: Backlog ===== -->
+        <section class="rounded-2xl bg-white ring-1 ring-gray-200 shadow-sm flex flex-col h-[70vh]">
+          <header class="p-4 border-b border-gray-200 flex items-center justify-between">
+            <div class="flex items-center gap-2">
+              <span class="h-2.5 w-2.5 rounded-full bg-gray-400"></span>
+              <h3 class="font-semibold">Backlog</h3>
+            </div>
+            <span class="text-xs text-gray-500">3 item</span>
+          </header>
+          <div class="p-3 overflow-auto space-y-3">
+            <!-- Card -->
+            <article class="rounded-xl border border-gray-200 bg-white p-3 hover:shadow-md">
+              <div class="flex items-start gap-2">
+                <div class="mt-1 h-2.5 w-2.5 rounded-full bg-gray-400 shrink-0"></div>
+                <div class="min-w-0">
+                  <h4 class="font-medium text-sm truncate">Riset kebutuhan warga</h4>
+                  <p class="text-xs text-gray-600 mt-1">
+                    Kumpulkan masukan untuk fitur portal layanan.
+                  </p>
+                  <div class="mt-2 flex flex-wrap items-center gap-2">
+                    <span class="px-2 py-0.5 rounded-md text-[11px] font-medium bg-amber-50 text-amber-700 ring-1 ring-amber-100">MEDIUM</span>
+                    <span class="px-2 py-0.5 rounded-md text-[11px] bg-gray-100 text-gray-700 ring-1 ring-black/5">Tidak ada tenggat</span>
+                  </div>
+                </div>
+              </div>
+            </article>
+
+            <article class="rounded-xl border border-gray-200 bg-white p-3 hover:shadow-md">
+              <div class="flex items-start gap-2">
+                <div class="mt-1 h-2.5 w-2.5 rounded-full bg-gray-400 shrink-0"></div>
+                <div class="min-w-0">
+                  <h4 class="font-medium text-sm truncate">Draft arsitektur modul</h4>
+                  <p class="text-xs text-gray-600 mt-1">
+                    Susun modul Penduduk, Layanan, Keuangan, Berita.
+                  </p>
+                  <div class="mt-2 flex flex-wrap items-center gap-2">
+                    <span class="px-2 py-0.5 rounded-md text-[11px] font-medium bg-emerald-50 text-emerald-700 ring-1 ring-emerald-100">LOW</span>
+                    <span class="px-2 py-0.5 rounded-md text-[11px] bg-gray-100 text-gray-700 ring-1 ring-black/5">20/11/2025</span>
+                  </div>
+                </div>
+              </div>
+            </article>
+
+            <article class="rounded-xl border border-gray-200 bg-white p-3 hover:shadow-md">
+              <div class="flex items-start gap-2">
+                <div class="mt-1 h-2.5 w-2.5 rounded-full bg-gray-400 shrink-0"></div>
+                <div class="min-w-0">
+                  <h4 class="font-medium text-sm truncate">Rencana data seeding</h4>
+                  <p class="text-xs text-gray-600 mt-1">
+                    Tentukan skema dummy untuk uji coba.
+                  </p>
+                  <div class="mt-2 flex flex-wrap items-center gap-2">
+                    <span class="px-2 py-0.5 rounded-md text-[11px] font-medium bg-violet-50 text-violet-700 ring-1 ring-violet-100">URGENT</span>
+                    <span class="px-2 py-0.5 rounded-md text-[11px] bg-gray-100 text-gray-700 ring-1 ring-black/5">Hari ini</span>
+                  </div>
+                </div>
+              </div>
+            </article>
+          </div>
+          <footer class="p-3 border-t border-gray-200 text-center text-xs text-gray-500">
+            Tambahkan item dengan mengedit HTML.
+          </footer>
+        </section>
+
+        <!-- ===== Column: In Progress ===== -->
+        <section class="rounded-2xl bg-white ring-1 ring-gray-200 shadow-sm flex flex-col h-[70vh]">
+          <header class="p-4 border-b border-gray-200 flex items-center justify-between">
+            <div class="flex items-center gap-2">
+              <span class="h-2.5 w-2.5 rounded-full bg-blue-500"></span>
+              <h3 class="font-semibold">In Progress</h3>
+            </div>
+            <span class="text-xs text-gray-500">2 item</span>
+          </header>
+          <div class="p-3 overflow-auto space-y-3">
+            <article class="rounded-xl border border-gray-200 bg-white p-3 hover:shadow-md">
+              <div class="flex items-start gap-2">
+                <div class="mt-1 h-2.5 w-2.5 rounded-full bg-blue-500 shrink-0"></div>
+                <div class="min-w-0">
+                  <h4 class="font-medium text-sm truncate">Setup database</h4>
+                  <p class="text-xs text-gray-600 mt-1">
+                    PostgreSQL + Drizzle; buat tabel Users & Todos.
+                  </p>
+                  <div class="mt-2 flex flex-wrap items-center gap-2">
+                    <span class="px-2 py-0.5 rounded-md text-[11px] font-medium bg-rose-50 text-rose-700 ring-1 ring-rose-100">HIGH</span>
+                    <span class="px-2 py-0.5 rounded-md text-[11px] bg-gray-100 text-gray-700 ring-1 ring-black/5">Besok</span>
+                  </div>
+                </div>
+              </div>
+            </article>
+
+            <article class="rounded-xl border border-gray-200 bg-white p-3 hover:shadow-md">
+              <div class="flex items-start gap-2">
+                <div class="mt-1 h-2.5 w-2.5 rounded-full bg-blue-500 shrink-0"></div>
+                <div class="min-w-0">
+                  <h4 class="font-medium text-sm truncate">Rancang UI Board</h4>
+                  <p class="text-xs text-gray-600 mt-1">
+                    Grid 4 kolom; kartu konsisten; badge prioritas.
+                  </p>
+                  <div class="mt-2 flex flex-wrap items-center gap-2">
+                    <span class="px-2 py-0.5 rounded-md text-[11px] font-medium bg-amber-50 text-amber-700 ring-1 ring-amber-100">MEDIUM</span>
+                    <span class="px-2 py-0.5 rounded-md text-[11px] bg-gray-100 text-gray-700 ring-1 ring-black/5">Tidak ada tenggat</span>
+                  </div>
+                </div>
+              </div>
+            </article>
+          </div>
+          <footer class="p-3 border-t border-gray-200 text-center text-xs text-gray-500">
+            Tambahkan/ubah card langsung di markup.
+          </footer>
+        </section>
+
+        <!-- ===== Column: Review ===== -->
+        <section class="rounded-2xl bg-white ring-1 ring-gray-200 shadow-sm flex flex-col h-[70vh]">
+          <header class="p-4 border-b border-gray-200 flex items-center justify-between">
+            <div class="flex items-center gap-2">
+              <span class="h-2.5 w-2.5 rounded-full bg-amber-500"></span>
+              <h3 class="font-semibold">Review</h3>
+            </div>
+            <span class="text-xs text-gray-500">1 item</span>
+          </header>
+          <div class="p-3 overflow-auto space-y-3">
+            <article class="rounded-xl border border-gray-200 bg-white p-3 hover:shadow-md">
+              <div class="flex items-start gap-2">
+                <div class="mt-1 h-2.5 w-2.5 rounded-full bg-amber-500 shrink-0"></div>
+                <div class="min-w-0">
+                  <h4 class="font-medium text-sm truncate">Code review fitur Auth</h4>
+                  <p class="text-xs text-gray-600 mt-1">
+                    Cek validasi & flow login-register.
+                  </p>
+                  <div class="mt-2 flex flex-wrap items-center gap-2">
+                    <span class="px-2 py-0.5 rounded-md text-[11px] font-medium bg-indigo-50 text-indigo-700 ring-1 ring-indigo-100">MEDIUM</span>
+                    <span class="px-2 py-0.5 rounded-md text-[11px] bg-gray-100 text-gray-700 ring-1 ring-black/5">25/10/2025</span>
+                  </div>
+                </div>
+              </div>
+            </article>
+          </div>
+          <footer class="p-3 border-t border-gray-200 text-center text-xs text-gray-500">
+            Pindahkan ke “Done” dengan edit HTML.
+          </footer>
+        </section>
+
+        <!-- ===== Column: Done ===== -->
+        <section class="rounded-2xl bg-white ring-1 ring-gray-200 shadow-sm flex flex-col h-[70vh]">
+          <header class="p-4 border-b border-gray-200 flex items-center justify-between">
+            <div class="flex items-center gap-2">
+              <span class="h-2.5 w-2.5 rounded-full bg-emerald-500"></span>
+              <h3 class="font-semibold">Done</h3>
+            </div>
+            <span class="text-xs text-gray-500">2 item</span>
+          </header>
+          <div class="p-3 overflow-auto space-y-3">
+            <article class="rounded-xl border border-gray-200 bg-white p-3 hover:shadow-md">
+              <div class="flex items-start gap-2">
+                <div class="mt-1 h-2.5 w-2.5 rounded-full bg-emerald-500 shrink-0"></div>
+                <div class="min-w-0">
+                  <h4 class="font-medium text-sm truncate">Draft style guide</h4>
+                  <p class="text-xs text-gray-600 mt-1">
+                    Spasi, radius, bayangan, dan badge prioritas.
+                  </p>
+                  <div class="mt-2 flex flex-wrap items-center gap-2">
+                    <span class="px-2 py-0.5 rounded-md text-[11px] font-medium bg-emerald-50 text-emerald-700 ring-1 ring-emerald-100">LOW</span>
+                    <span class="px-2 py-0.5 rounded-md text-[11px] bg-gray-100 text-gray-700 ring-1 ring-black/5">Selesai</span>
+                  </div>
+                </div>
+              </div>
+            </article>
+
+            <article class="rounded-xl border border-gray-200 bg-white p-3 hover:shadow-md">
+              <div class="flex items-start gap-2">
+                <div class="mt-1 h-2.5 w-2.5 rounded-full bg-emerald-500 shrink-0"></div>
+                <div class="min-w-0">
+                  <h4 class="font-medium text-sm truncate">Setup repo awal</h4>
+                  <p class="text-xs text-gray-600 mt-1">
+                    Struktur proyek & readme ringkas.
+                  </p>
+                  <div class="mt-2 flex flex-wrap items-center gap-2">
+                    <span class="px-2 py-0.5 rounded-md text-[11px] font-medium bg-indigo-50 text-indigo-700 ring-1 ring-indigo-100">MEDIUM</span>
+                    <span class="px-2 py-0.5 rounded-md text-[11px] bg-gray-100 text-gray-700 ring-1 ring-black/5">Selesai</span>
+                  </div>
+                </div>
+              </div>
+            </article>
+          </div>
+          <footer class="p-3 border-t border-gray-200 text-center text-xs text-gray-500">
+            Good job! 🎉
+          </footer>
+        </section>
+      </div>
+    </main>

@@ -1,0 +1,300 @@
+<!doctype html>
+<html lang="id" class="scroll-smooth">
+	<head>
+		<meta charset="utf-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1" />
+		<title>Todo List — Modern UI</title>
+		<script src="https://cdn.tailwindcss.com"></script>
+		<script>
+			// tailwind.config = {
+			// 	theme: {
+			// 		extend: {
+			// 			colors: {
+			// 				brand: {
+			// 					50: '#eef2ff',
+			// 					100: '#e0e7ff',
+			// 					200: '#c7d2fe',
+			// 					300: '#a5b4fc',
+			// 					400: '#818cf8',
+			// 					500: '#6366f1',
+			// 					600: '#4f46e5',
+			// 					700: '#4338ca',
+			// 					800: '#3730a3',
+			// 					900: '#312e81'
+			// 				},
+			// 				priority: {
+			// 					low: '#10b981' /* hijau */,
+			// 					medium: '#f59e0b' /* amber */,
+			// 					high: '#ef4444' /* merah */,
+			// 					urgent: '#7c3aed' /* ungu */
+			// 				}
+			// 			},
+			// 			boxShadow: {
+			// 				soft: '0 10px 25px -10px rgba(0,0,0,0.15)'
+			// 			}
+			// 		}
+			// 	},
+			// 	darkMode: 'class'
+			// };
+		</script>
+		<!-- <style>
+			/* Tipis-tipis untuk scrollbar (opsional) */
+			::-webkit-scrollbar {
+				height: 10px;
+				width: 10px;
+			}
+			::-webkit-scrollbar-thumb {
+				background: #c7d2fe;
+				border-radius: 9999px;
+			}
+		</style> -->
+	</head>
+	<body>
+		<!-- Navbar -->
+		<header class="sticky top-0 z-50 border-b border-slate-200 bg-white/80 backdrop-blur">
+			<div class="mx-auto flex h-16 max-w-7xl items-center justify-between px-4 sm:px-6 lg:px-8">
+				<div class="flex items-center gap-3">
+					<div
+						class="grid h-9 w-9 place-content-center rounded-xl bg-brand-600 font-semibold text-white shadow-soft"
+					>
+						TD
+					</div>
+					<h1 class="text-lg font-semibold tracking-tight sm:text-xl">Todo List</h1>
+				</div>
+				<nav class="hidden items-center gap-6 text-sm text-slate-600 md:flex">
+					<a href="#" class="hover:text-brand-600">Dashboard</a>
+					<a href="#" class="hover:text-brand-600">Projects</a>
+					<a href="#" class="hover:text-brand-600">Teams</a>
+				</nav>
+				<div class="flex items-center gap-3">
+					<a
+						href="#"
+						class="inline-flex items-center gap-2 rounded-xl border border-slate-200 px-3 py-2 text-sm hover:bg-slate-100"
+					>
+						<svg
+							xmlns="http://www.w3.org/2000/svg"
+							class="h-4 w-4 opacity-70"
+							viewBox="0 0 24 24"
+							fill="currentColor"
+						>
+							<path
+								d="M10 2a8 8 0 105.293 14.293l3.707 3.707 1.414-1.414-3.707-3.707A8 8 0 0010 2zm0 2a6 6 0 110 12A6 6 0 0110 4z"
+							/>
+						</svg>
+						Cari
+					</a>
+					<a
+						href="#"
+						class="inline-flex items-center gap-2 rounded-xl bg-brand-600 px-3 py-2 text-sm text-white shadow-soft hover:bg-brand-700"
+					>
+						+ Tambah Tugas
+					</a>
+				</div>
+			</div>
+		</header>
+
+		<!-- Hero / Stats -->
+		<section class="mx-auto mt-8 max-w-7xl px-4 sm:px-6 lg:px-8">
+			<div class="grid gap-4 sm:grid-cols-3">
+				<article class="rounded-2xl border border-slate-200 bg-white p-5 shadow-soft">
+					<div class="text-sm text-slate-500">Total Tugas</div>
+					<div class="mt-2 text-3xl font-semibold">28</div>
+					<div class="mt-1 text-xs text-slate-500">+6 minggu ini</div>
+				</article>
+				<article class="rounded-2xl border border-slate-200 bg-white p-5 shadow-soft">
+					<div class="text-sm text-slate-500">Selesai</div>
+					<div class="mt-2 text-3xl font-semibold">14</div>
+					<div class="mt-1 text-xs text-slate-500">50% completion</div>
+				</article>
+				<article class="rounded-2xl border border-slate-200 bg-white p-5 shadow-soft">
+					<div class="text-sm text-slate-500">Tenggat Dekat</div>
+					<div class="mt-2 text-3xl font-semibold">5</div>
+					<div class="mt-1 text-xs text-slate-500">3 overdue</div>
+				</article>
+			</div>
+		</section>
+
+		<section class="mx-auto mt-8 max-w-7xl px-4 sm:px-6 lg:px-8">
+			<div class="rounded-2xl border border-slate-200 bg-white p-4 shadow-soft">
+				<div class="flex flex-col justify-between gap-3 sm:flex-row sm:items-center">
+					<div class="flex flex-wrap items-center gap-2">
+						<span class="text-sm text-slate-500">Filter:</span>
+						<a
+							href="#"
+							class="rounded-full border border-slate-200 px-3 py-1.5 text-sm hover:bg-slate-50"
+							>Semua</a
+						>
+						<a
+							href="#"
+							class="rounded-full border border-slate-200 px-3 py-1.5 text-sm hover:bg-slate-50"
+							>Hari Ini</a
+						>
+						<a
+							href="#"
+							class="rounded-full border border-slate-200 px-3 py-1.5 text-sm hover:bg-slate-50"
+							>Minggu Ini</a
+						>
+						<a
+							href="#"
+							class="rounded-full border border-slate-200 px-3 py-1.5 text-sm hover:bg-slate-50"
+							>Selesai</a
+						>
+						<a
+							href="#"
+							class="rounded-full border border-slate-200 px-3 py-1.5 text-sm hover:bg-slate-50"
+							>Overdue</a
+						>
+					</div>
+					<div class="w-full sm:w-80">
+						<label class="sr-only" for="search">Cari tugas</label>
+						<div class="relative">
+							<input
+								id="search"
+								type="text"
+								placeholder="Cari judul, tag, atau deskripsi…"
+								class="w-full rounded-xl border border-slate-200 py-2.5 pr-3 pl-10 text-sm placeholder:text-slate-400 focus:ring-2 focus:ring-brand-500/30 focus:outline-none"
+							/>
+							<svg
+								xmlns="http://www.w3.org/2000/svg"
+								class="absolute top-2.5 left-3 h-5 w-5 text-slate-400"
+								viewBox="0 0 24 24"
+								fill="currentColor"
+							>
+								<path
+									d="M10 2a8 8 0 105.293 14.293l3.707 3.707 1.414-1.414-3.707-3.707A8 8 0 0010 2zm0 2a6 6 0 110 12A6 6 0 0110 4z"
+								/>
+							</svg>
+						</div>
+					</div>
+				</div>
+			</div>
+		</section>
+
+		<!-- List + Sidebar -->
+		<main
+			class="mx-auto mt-6 grid max-w-7xl gap-6 px-4 pb-16 sm:px-6 lg:grid-cols-[1fr,320px] lg:px-8"
+		>
+			<!-- Todo List -->
+			<section class="space-y-4">
+				<!-- Group: Hari Ini -->
+				<div class="overflow-hidden rounded-2xl border border-slate-200 bg-white shadow-soft">
+					<div
+						class="flex items-center justify-between border-b border-slate-100 bg-slate-50 px-5 py-3"
+					>
+						<h2 class="text-sm font-semibold tracking-wide text-slate-700 uppercase">Hari Ini</h2>
+						<span class="text-xs text-slate-500">4 tugas</span>
+					</div>
+					<ul class="divide-y divide-slate-100">
+						<!-- Item -->
+						<li class="p-5 hover:bg-slate-50/60">
+							<div class="flex items-start gap-4">
+								<input
+									type="checkbox"
+									id="todo1"
+									class="peer mt-1.5 h-5 w-5 shrink-0 cursor-pointer rounded accent-brand-600"
+								/>
+								<label
+									for="todo1"
+									class="w-full cursor-pointer peer-checked:line-through peer-checked:decoration-slate-400 peer-checked:opacity-60"
+								>
+									<h3 class="text-lg font-semibold text-slate-800">Desain Halaman Login</h3>
+									<p class="mt-1 text-sm text-slate-600">
+										Buat layout modern untuk halaman login dengan Tailwind.
+									</p>
+									<div class="mt-3 flex flex-wrap gap-2">
+										<span
+											class="rounded-full border border-indigo-200 bg-indigo-50 px-2 py-0.5 text-xs text-indigo-700"
+											>UI/UX</span
+										>
+										<span
+											class="rounded-full border border-amber-200 bg-amber-50 px-2 py-0.5 text-xs text-amber-700"
+											>Medium</span
+										>
+										<span
+											class="hidden rounded-full border border-emerald-200 bg-emerald-50 px-2 py-0.5 text-xs text-emerald-700 peer-checked:inline"
+											>Selesai</span
+										>
+									</div>
+								</label>
+							</div>
+						</li>
+					</ul>
+				</div>
+			</section>
+
+			<!-- Sidebar -->
+			<aside class="space-y-4">
+				<div class="rounded-2xl border border-slate-200 bg-white p-5 shadow-soft">
+					<h3 class="text-sm font-semibold text-slate-700">Ringkas Status</h3>
+					<ul class="mt-3 space-y-2 text-sm">
+						<li class="flex items-center justify-between">
+							<span class="inline-flex items-center gap-2"
+								><span class="h-2.5 w-2.5 rounded-full bg-slate-300"></span> Belum Dimulai</span
+							>
+							<span class="font-medium">9</span>
+						</li>
+						<li class="flex items-center justify-between">
+							<span class="inline-flex items-center gap-2"
+								><span class="h-2.5 w-2.5 rounded-full bg-amber-400"></span> Progres</span
+							>
+							<span class="font-medium">6</span>
+						</li>
+						<li class="flex items-center justify-between">
+							<span class="inline-flex items-center gap-2"
+								><span class="h-2.5 w-2.5 rounded-full bg-emerald-500"></span> Selesai</span
+							>
+							<span class="font-medium">14</span>
+						</li>
+					</ul>
+				</div>
+
+				<div class="rounded-2xl border border-slate-200 bg-white p-5 shadow-soft">
+					<h3 class="text-sm font-semibold text-slate-700">Tag Populer</h3>
+					<div class="mt-3 flex flex-wrap gap-2">
+						<a
+							href="#"
+							class="rounded-full border border-slate-200 px-3 py-1.5 text-sm hover:bg-slate-50"
+							>UI/UX</a
+						>
+						<a
+							href="#"
+							class="rounded-full border border-slate-200 px-3 py-1.5 text-sm hover:bg-slate-50"
+							>Auth</a
+						>
+						<a
+							href="#"
+							class="rounded-full border border-slate-200 px-3 py-1.5 text-sm hover:bg-slate-50"
+							>API</a
+						>
+						<a
+							href="#"
+							class="rounded-full border border-slate-200 px-3 py-1.5 text-sm hover:bg-slate-50"
+							>Docs</a
+						>
+						<a
+							href="#"
+							class="rounded-full border border-slate-200 px-3 py-1.5 text-sm hover:bg-slate-50"
+							>Polish</a
+						>
+					</div>
+				</div>
+
+				<div class="rounded-2xl border border-slate-200 bg-white p-5 shadow-soft">
+					<h3 class="text-sm font-semibold text-slate-700">Shortcut</h3>
+					<ul class="mt-3 space-y-2 text-sm">
+						<li><a href="#" class="text-brand-700 hover:underline">Tambah Tugas</a></li>
+						<li><a href="#" class="text-brand-700 hover:underline">Impor CSV</a></li>
+						<li><a href="#" class="text-brand-700 hover:underline">Template</a></li>
+					</ul>
+				</div>
+			</aside>
+		</main>
+
+		<!-- Footer -->
+		<footer class="mt-6 border-t border-slate-200">
+			<div class="mx-auto max-w-7xl px-4 py-8 text-sm text-slate-500 sm:px-6 lg:px-8">
+				Dibuat dengan Tailwind — UI statis untuk contoh Todo List.
+			</div>
+		</footer>
+	</body>
+</html>
