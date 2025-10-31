@@ -1,5 +1,5 @@
 <script lang="ts">
-	import ActionCell from '$lib/components/admin/penduduk/action-cell.svelte';
+	import AksiCell from './aksi-cell.svelte';
 	import type { AnySvelteComponent, Column } from './data-table.svelte';
 	import DataTable from './data-table.svelte';
 
@@ -29,7 +29,7 @@
 			header: 'Aksi',
 			align: 'center',
 			visible: true,
-			component: ActionCell as unknown as AnySvelteComponent,
+			component: AksiCell as unknown as AnySvelteComponent,
 			componentProps: (row) => ({
 				onEdit: () => console.log('raaawww', row),
 				onDelete: () => console.log('delete', row)

@@ -9,13 +9,15 @@ export const load = async ({ url }) => {
 	const dateFilter = url.searchParams.get('date-filter') || '';
 
 	const [todos, tags, todoStatus] = await Promise.all([
-		api(`/todos?page=${page}&limit=${limit}&search=${search}&dateFilter=${dateFilter}`, { method: 'GET' }),
+		api(`/todos?page=${page}&limit=${limit}&search=${search}&dateFilter=${dateFilter}`, {
+			method: 'GET'
+		}),
 		api('/tags', { method: 'GET' }),
 		api('/todo-status', { method: 'GET' })
 	]);
 
 	if (!todos || !tags || !todoStatus) {
-		fail(403, { message: 'Forbidden' });
+		fail(404, { message: 'Forbidden' });
 	}
 
 	return {

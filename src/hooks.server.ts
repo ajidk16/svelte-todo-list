@@ -6,10 +6,13 @@ export const handle: Handle = async ({ event, resolve }) => {
 
 	setCookie('auth', token ?? '');
 
+	const userProfile = event.cookies.get('userProfile');
+	setCookie('userProfile', userProfile ?? '');
+
 	const { pathname } = event.url;
 
 	if (pathname === '/auth/login' && token) {
-		throw redirect(303, '/todo');
+		throw redirect(303, '/dashboard');
 	}
 
 	if (pathname === '/') {

@@ -47,7 +47,7 @@
 			return;
 		}
 
-		window.location.href = '/todo';
+		window.location.href = '/dashboard';
 	};
 </script>
 

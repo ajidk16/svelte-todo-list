@@ -1,5 +1,5 @@
 import { api } from '$lib/utils/api.js';
-// import { error } from 'console';
+import { error } from '@sveltejs/kit';
 
 export const load = async ({ url, cookies }) => {
 	console.log('apa itu url', url.pathname);
@@ -8,9 +8,9 @@ export const load = async ({ url, cookies }) => {
 		method: 'GET'
 	});
 
-	// error(403, 'data kosong');
-
-	// console.log(kanban);
+	if (kanban.status === 404) {
+		throw error(404, 'Kanban endpoint not found.');
+	}
 
 	return { kanban: kanban, auth: cookies.get('auth') };
 };

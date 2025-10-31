@@ -1,8 +1,7 @@
 <script lang="ts">
 	import { goto } from '$app/navigation';
 	import { page } from '$app/state';
-	import { Footer, Navbar } from '$lib/components/shared';
-	import { ArrowLeft, ArrowRight, SquarePen } from 'lucide-svelte';
+	import { ArrowLeft, ArrowRight, RemoveFormatting, SquarePen, Trash } from 'lucide-svelte';
 	import VerifyNotice from '../../../modules/todos/components/verify-notice.svelte';
 	import StatsCards from '../../../modules/todos/components/stats-cards.svelte';
 	import Button from '$lib/components/shared/button/button.svelte';
@@ -76,7 +75,6 @@
 	let formData: Record<string, any> = $state({});
 	let editMode: boolean = $state(false);
 
-	// Define the type for a Todo item
 	type Todo = {
 		id: string;
 		title?: string;
@@ -108,9 +106,7 @@
 	};
 </script>
 
-<div class="bg-slate-50 text-slate-800 antialiased">
-	<Navbar />
-
+<div>
 	{#if data.todos.status === 403}
 		<VerifyNotice />
 	{:else}
@@ -192,7 +188,7 @@
 						{#each todos as todo}
 							<ul class="divide-y divide-slate-100">
 								<li class="flex justify-between p-5 hover:bg-slate-50/60">
-									<div class="flex items-start gap-4">
+									<div class="flex w-full items-start gap-4">
 										<input
 											type="checkbox"
 											id={todo.id}
@@ -222,12 +218,19 @@
 											</div>
 										</label>
 									</div>
-									<button
-										class="ml-4 inline-flex items-center rounded-full bg-slate-100 p-2 text-slate-600 hover:bg-slate-200 focus:ring-2 focus:ring-brand-500/30 focus:outline-none"
-										onclick={() => onEdit(todo.id)}
-									>
-										<SquarePen size="16" />
-									</button>
+									<div class="flex flex-col items-center justify-center gap-3">
+										<button
+											class="inline-flex cursor-pointer items-center rounded-full bg-slate-100 p-2 text-slate-600 hover:bg-slate-200 focus:ring-2 focus:ring-brand-500/30 focus:outline-none"
+											onclick={() => onEdit(todo.id)}
+										>
+											<SquarePen size="16" />
+										</button>
+										<button
+											class="inline-flex cursor-pointer items-center rounded-full bg-slate-100 p-2 text-slate-600 hover:bg-slate-200 focus:ring-2 focus:ring-brand-500/30 focus:outline-none"
+										>
+											<Trash size="16" />
+										</button>
+									</div>
 								</li>
 							</ul>
 						{/each}
@@ -275,54 +278,66 @@
 
 			<aside class="space-y-4">
 				<div class="rounded-2xl border border-slate-200 bg-white p-5 shadow-soft">
+					<h3 class="text-sm font-semibold text-slate-700">Shortcut</h3>
+					<ul class="mt-3 space-y-2 text-sm">
+						<li>
+							<button
+								onclick={() => {
+									modal = true;
+									editMode = false;
+									formData = {};
+								}}
+								class="cursor-pointer text-brand-700 hover:underline">Tambah Tugas</button
+							>
+						</li>
+						<!-- <li><a href="#asd" class="text-brand-700 hover:underline">Impor CSV</a></li>
+						<li><a href="#asd" class="text-brand-700 hover:underline">Template</a></li> -->
+					</ul>
+				</div>
+				<div class="rounded-2xl border border-slate-200 bg-white p-5 shadow-soft">
 					<h3 class="text-sm font-semibold text-slate-700">Ringkas Status</h3>
 					<ul class="mt-3 space-y-2 text-sm">
-						{#each todoStatus as status}
-							<li class="flex items-center justify-between">
-								<span class="inline-flex items-center gap-2"
-									><span class="h-2.5 w-2.5 rounded-full" style="background-color: {status.color};"
-									></span>
-									{status.label}</span
-								>
-								<span class="font-medium">
-									{status.todos.length ?? 0}
-								</span>
-							</li>
-						{/each}
+						{#if todoStatus.length > 0}
+							{#each todoStatus as status}
+								<li class="flex items-center justify-between">
+									<span class="inline-flex items-center gap-2"
+										><span
+											class="h-2.5 w-2.5 rounded-full"
+											style="background-color: {status.color};"
+										></span>
+										{status.label}</span
+									>
+									<span class="font-medium">
+										{status.todos.length ?? 0}
+									</span>
+								</li>
+							{/each}
+						{:else}
+							<a href="/profile/todo-status" class="text-brand-700 hover:underline">Tambah Status</a>
+						{/if}
 					</ul>
 				</div>
 
 				<div class="rounded-2xl border border-slate-200 bg-white p-5 shadow-soft">
 					<h3 class="text-sm font-semibold text-slate-700">Tag Populer</h3>
 					<div class="mt-3 flex flex-wrap gap-2">
-						{#each tags.data as tag}
-							<a
-								href="#{tag.name}"
-								style="background-color: {tag.color ?? '#3b82f6'}; color: white;"
-								class="inline-flex items-center rounded-full px-3 py-1 text-xs font-medium"
-								>{tag.name}</a
-							>
-						{/each}
+						{#if tags.length > 0}
+							{#each tags as tag}
+								<span
+									class="inline-flex items-center rounded-full px-3 py-1 text-xs font-medium"
+									style="background-color: {tag.color}; color: white;"
+								>
+									{tag.name}
+								</span>
+							{/each}
+						{:else}
+							<a href="/profile/tags" class="text-brand-700 hover:underline">Tambah Tag</a>
+						{/if}
 					</div>
-				</div>
-
-				<div class="rounded-2xl border border-slate-200 bg-white p-5 shadow-soft">
-					<h3 class="text-sm font-semibold text-slate-700">Shortcut</h3>
-					<ul class="mt-3 space-y-2 text-sm">
-						<li>
-							<button onclick={() => (modal = true)} class="text-brand-700 hover:underline"
-								>Tambah Tugas</button
-							>
-						</li>
-						<li><a href="#asd" class="text-brand-700 hover:underline">Impor CSV</a></li>
-						<li><a href="#asd" class="text-brand-700 hover:underline">Template</a></li>
-					</ul>
 				</div>
 			</aside>
 		</main>
 	{/if}
-
-	<Footer />
 </div>
 
 <Modal

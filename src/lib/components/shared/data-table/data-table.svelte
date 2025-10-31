@@ -30,12 +30,14 @@
 	export let searchable = true;
 	export let selectable = false;
 	export let total: number = 0;
+	export let inputValue: string = '';
+	export let currentPage: number = 1; // current page
 
 	const dispatch = createEventDispatcher();
 
 	// --- STATE ---
-	let q = '';
-	let page = 1;
+	let q = inputValue ?? '';
+	let page = currentPage ?? 1;
 	let pageSize = pageSizeOptions[0] ?? 10;
 	let sortBy: string | null = null;
 	let sortDir: 'asc' | 'desc' = 'asc';
@@ -111,25 +113,10 @@
 		if (serverMode) dispatch('page', { page, pageSize });
 	}
 
-	// Simple debounce implementation
-	function debounce<T extends (...args: any[]) => void>(fn: T, delay: number) {
-		let timeout: ReturnType<typeof setTimeout>;
-		return (...args: Parameters<T>) => {
-			clearTimeout(timeout);
-			timeout = setTimeout(() => fn(...args), delay);
-		};
-	}
-
-	const debouncedSearch = debounce(() => {
-		dispatch('search', { q });
-		// Reset halaman ke 1 saat pencarian
-		page = 1;
-		dispatch('page', { page, pageSize });
-	}, 300);
-
 	function onSearchInput(e: Event) {
-		q = (e.target as HTMLInputElement).value;
-		debouncedSearch();
+		dispatch('searchInput', { q: (e.target as HTMLInputElement).value });
+		// q = (e.target as HTMLInputElement).value;
+		// debouncedSearch();
 	}
 
 	function resetToFirst() {
@@ -175,7 +162,7 @@
 				<input
 					type="text"
 					placeholder="Cari..."
-					bind:value={q}
+					bind:value={inputValue}
 					on:input={onSearchInput}
 					class="w-64 rounded-xl border border-none bg-white py-1.5 outline-none active:outline-none dark:border-slate-700 dark:bg-slate-800"
 				/>
@@ -232,7 +219,9 @@
 						</th>
 					{/if}
 					{#each visibleCols.filter((c) => c.visible) as c}
-						<th class={`py-3 pr-5 ${c.width ?? ''}`}>
+						<th
+							class={`py-3 pr-5 ${c.width ?? ''} ${c.align === 'center' ? 'text-center' : c.align === 'right' ? 'text-right' : 'text-left'}`}
+						>
 							<button
 								class="inline-flex cursor-pointer items-center gap-1"
 								on:click={() => c.sortable && toggleSort(String(c.key))}

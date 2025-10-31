@@ -1,300 +1,450 @@
 <!doctype html>
 <html lang="id" class="scroll-smooth">
-	<head>
-		<meta charset="utf-8" />
-		<meta name="viewport" content="width=device-width, initial-scale=1" />
-		<title>Todo List — Modern UI</title>
-		<script src="https://cdn.tailwindcss.com"></script>
-		<script>
-			// tailwind.config = {
-			// 	theme: {
-			// 		extend: {
-			// 			colors: {
-			// 				brand: {
-			// 					50: '#eef2ff',
-			// 					100: '#e0e7ff',
-			// 					200: '#c7d2fe',
-			// 					300: '#a5b4fc',
-			// 					400: '#818cf8',
-			// 					500: '#6366f1',
-			// 					600: '#4f46e5',
-			// 					700: '#4338ca',
-			// 					800: '#3730a3',
-			// 					900: '#312e81'
-			// 				},
-			// 				priority: {
-			// 					low: '#10b981' /* hijau */,
-			// 					medium: '#f59e0b' /* amber */,
-			// 					high: '#ef4444' /* merah */,
-			// 					urgent: '#7c3aed' /* ungu */
-			// 				}
-			// 			},
-			// 			boxShadow: {
-			// 				soft: '0 10px 25px -10px rgba(0,0,0,0.15)'
-			// 			}
-			// 		}
-			// 	},
-			// 	darkMode: 'class'
-			// };
-		</script>
-		<!-- <style>
-			/* Tipis-tipis untuk scrollbar (opsional) */
-			::-webkit-scrollbar {
-				height: 10px;
-				width: 10px;
-			}
-			::-webkit-scrollbar-thumb {
-				background: #c7d2fe;
-				border-radius: 9999px;
-			}
-		</style> -->
-	</head>
-	<body>
-		<!-- Navbar -->
-		<header class="sticky top-0 z-50 border-b border-slate-200 bg-white/80 backdrop-blur">
-			<div class="mx-auto flex h-16 max-w-7xl items-center justify-between px-4 sm:px-6 lg:px-8">
-				<div class="flex items-center gap-3">
-					<div
-						class="grid h-9 w-9 place-content-center rounded-xl bg-brand-600 font-semibold text-white shadow-soft"
-					>
-						TD
-					</div>
-					<h1 class="text-lg font-semibold tracking-tight sm:text-xl">Todo List</h1>
-				</div>
-				<nav class="hidden items-center gap-6 text-sm text-slate-600 md:flex">
-					<a href="#" class="hover:text-brand-600">Dashboard</a>
-					<a href="#" class="hover:text-brand-600">Projects</a>
-					<a href="#" class="hover:text-brand-600">Teams</a>
-				</nav>
-				<div class="flex items-center gap-3">
-					<a
-						href="#"
-						class="inline-flex items-center gap-2 rounded-xl border border-slate-200 px-3 py-2 text-sm hover:bg-slate-100"
-					>
-						<svg
-							xmlns="http://www.w3.org/2000/svg"
-							class="h-4 w-4 opacity-70"
-							viewBox="0 0 24 24"
-							fill="currentColor"
-						>
-							<path
-								d="M10 2a8 8 0 105.293 14.293l3.707 3.707 1.414-1.414-3.707-3.707A8 8 0 0010 2zm0 2a6 6 0 110 12A6 6 0 0110 4z"
-							/>
-						</svg>
-						Cari
-					</a>
-					<a
-						href="#"
-						class="inline-flex items-center gap-2 rounded-xl bg-brand-600 px-3 py-2 text-sm text-white shadow-soft hover:bg-brand-700"
-					>
-						+ Tambah Tugas
-					</a>
-				</div>
-			</div>
-		</header>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Dashboard To‑Do — Tailwind</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+      tailwind.config = {
+        darkMode: 'class',
+        theme: {
+          extend: {
+            colors: {
+              brand: {
+                50:'#eef2ff',100:'#e0e7ff',200:'#c7d2fe',300:'#a5b4fc',
+                400:'#818cf8',500:'#6366f1',600:'#4f46e5',700:'#4338ca',
+                800:'#3730a3',900:'#312e81'
+              }
+            }
+          }
+        }
+      }
+    </script>
+    <style>
+      /* Hide scrollbars on Kanban columns for a cleaner look */
+      .no-scrollbar::-webkit-scrollbar { display: none; }
+      .no-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
+    </style>
+  </head>
+  <body class="bg-slate-50 text-slate-800">
+    <!-- Shell -->
+    <div class="min-h-screen grid grid-cols-1 lg:grid-cols-[260px_1fr]">
+      <!-- Sidebar -->
+      <aside class="bg-white border-r border-slate-200 lg:sticky top-0 h-auto lg:h-screen">
+        <div class="p-4 flex items-center gap-2">
+          <div class="size-8 rounded-xl bg-brand-600"></div>
+          <div class="font-semibold">Todo Board</div>
+        </div>
+        <nav class="px-2 pb-4 space-y-1">
+          <a href="#" class="flex items-center gap-3 px-3 py-2 rounded-xl text-sm font-medium bg-brand-50 text-brand-700">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="size-5"><path d="M3.75 4.5h16.5v15H3.75v-15Zm1.5 1.5v12h13.5v-12H5.25Zm3 2.25h7.5v1.5H8.25v-1.5Zm0 3h7.5v1.5H8.25v-1.5Zm0 3h4.5v1.5h-4.5v-1.5Z"/></svg>
+            Dashboard
+          </a>
+          <a href="#" class="flex items-center gap-3 px-3 py-2 rounded-xl text-sm text-slate-600 hover:bg-slate-100">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="size-5"><path d="M12 1.5 3 6v12l9 4.5 9-4.5V6L12 1.5Zm0 1.74L19.5 6.6v10.8L12 21.76 4.5 17.4V6.6L12 3.24ZM7.5 12a1.5 1.5 0 1 1 3.001 0A1.5 1.5 0 0 1 7.5 12Zm6 0a1.5 1.5 0 1 1 3.001 0A1.5 1.5 0 0 1 13.5 12Z"/></svg>
+            Projects
+          </a>
+          <a href="#" class="flex items-center gap-3 px-3 py-2 rounded-xl text-sm text-slate-600 hover:bg-slate-100">
+            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" class="size-5"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M3 5h18M3 12h18M3 19h18"/></svg>
+            Backlog
+          </a>
+          <a href="#" class="flex items-center gap-3 px-3 py-2 rounded-xl text-sm text-slate-600 hover:bg-slate-100">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="size-5"><path d="M4.5 3.75h15v1.5h-15v-1.5Zm0 3h15v1.5h-15v-1.5Zm0 3h15v1.5h-15v-1.5Zm0 3h15v1.5h-15v-1.5Zm0 3h15v1.5h-15v-1.5Z"/></svg>
+            Kalender
+          </a>
+        </nav>
+      </aside>
 
-		<!-- Hero / Stats -->
-		<section class="mx-auto mt-8 max-w-7xl px-4 sm:px-6 lg:px-8">
-			<div class="grid gap-4 sm:grid-cols-3">
-				<article class="rounded-2xl border border-slate-200 bg-white p-5 shadow-soft">
-					<div class="text-sm text-slate-500">Total Tugas</div>
-					<div class="mt-2 text-3xl font-semibold">28</div>
-					<div class="mt-1 text-xs text-slate-500">+6 minggu ini</div>
-				</article>
-				<article class="rounded-2xl border border-slate-200 bg-white p-5 shadow-soft">
-					<div class="text-sm text-slate-500">Selesai</div>
-					<div class="mt-2 text-3xl font-semibold">14</div>
-					<div class="mt-1 text-xs text-slate-500">50% completion</div>
-				</article>
-				<article class="rounded-2xl border border-slate-200 bg-white p-5 shadow-soft">
-					<div class="text-sm text-slate-500">Tenggat Dekat</div>
-					<div class="mt-2 text-3xl font-semibold">5</div>
-					<div class="mt-1 text-xs text-slate-500">3 overdue</div>
-				</article>
-			</div>
-		</section>
+      <!-- Main -->
+      <main class="min-h-screen">
+        <!-- Header -->
+        <header class="bg-white border-b border-slate-200">
+          <div class="px-4 lg:px-6 py-4 flex flex-col gap-3 md:flex-row md:items-center md:justify-between">
+            <div class="space-y-1">
+              <h1 class="text-xl font-semibold">Dashboard To‑Do</h1>
+              <p class="text-sm text-slate-500">Kelola tugas. Fokus yang penting. Selesai tepat waktu.</p>
+            </div>
+            <div class="flex gap-2">
+              <button id="themeBtn" class="px-3 py-2 text-sm rounded-xl border border-slate-200 hover:bg-slate-50">Tema</button>
+              <button id="addBtn" class="px-4 py-2 text-sm rounded-xl bg-brand-600 text-white hover:bg-brand-700">Tambah Tugas</button>
+            </div>
+          </div>
+        </header>
 
-		<section class="mx-auto mt-8 max-w-7xl px-4 sm:px-6 lg:px-8">
-			<div class="rounded-2xl border border-slate-200 bg-white p-4 shadow-soft">
-				<div class="flex flex-col justify-between gap-3 sm:flex-row sm:items-center">
-					<div class="flex flex-wrap items-center gap-2">
-						<span class="text-sm text-slate-500">Filter:</span>
-						<a
-							href="#"
-							class="rounded-full border border-slate-200 px-3 py-1.5 text-sm hover:bg-slate-50"
-							>Semua</a
-						>
-						<a
-							href="#"
-							class="rounded-full border border-slate-200 px-3 py-1.5 text-sm hover:bg-slate-50"
-							>Hari Ini</a
-						>
-						<a
-							href="#"
-							class="rounded-full border border-slate-200 px-3 py-1.5 text-sm hover:bg-slate-50"
-							>Minggu Ini</a
-						>
-						<a
-							href="#"
-							class="rounded-full border border-slate-200 px-3 py-1.5 text-sm hover:bg-slate-50"
-							>Selesai</a
-						>
-						<a
-							href="#"
-							class="rounded-full border border-slate-200 px-3 py-1.5 text-sm hover:bg-slate-50"
-							>Overdue</a
-						>
-					</div>
-					<div class="w-full sm:w-80">
-						<label class="sr-only" for="search">Cari tugas</label>
-						<div class="relative">
-							<input
-								id="search"
-								type="text"
-								placeholder="Cari judul, tag, atau deskripsi…"
-								class="w-full rounded-xl border border-slate-200 py-2.5 pr-3 pl-10 text-sm placeholder:text-slate-400 focus:ring-2 focus:ring-brand-500/30 focus:outline-none"
-							/>
-							<svg
-								xmlns="http://www.w3.org/2000/svg"
-								class="absolute top-2.5 left-3 h-5 w-5 text-slate-400"
-								viewBox="0 0 24 24"
-								fill="currentColor"
-							>
-								<path
-									d="M10 2a8 8 0 105.293 14.293l3.707 3.707 1.414-1.414-3.707-3.707A8 8 0 0010 2zm0 2a6 6 0 110 12A6 6 0 0110 4z"
-								/>
-							</svg>
-						</div>
-					</div>
-				</div>
-			</div>
-		</section>
+        <!-- Content -->
+        <div class="p-4 lg:p-6 space-y-6">
+          <!-- KPI Cards -->
+          <section class="grid sm:grid-cols-2 xl:grid-cols-4 gap-4">
+            <div class="bg-white rounded-2xl border border-slate-200 p-4">
+              <div class="text-sm text-slate-500">Total Tugas</div>
+              <div id="kpiTotal" class="mt-1 text-2xl font-semibold">0</div>
+            </div>
+            <div class="bg-white rounded-2xl border border-slate-200 p-4">
+              <div class="text-sm text-slate-500">Selesai</div>
+              <div id="kpiDone" class="mt-1 text-2xl font-semibold">0</div>
+            </div>
+            <div class="bg-white rounded-2xl border border-slate-200 p-4">
+              <div class="text-sm text-slate-500">In Progress</div>
+              <div id="kpiProgress" class="mt-1 text-2xl font-semibold">0</div>
+            </div>
+            <div class="bg-white rounded-2xl border border-slate-200 p-4">
+              <div class="text-sm text-slate-500">Tertunda</div>
+              <div id="kpiPending" class="mt-1 text-2xl font-semibold">0</div>
+            </div>
+          </section>
 
-		<!-- List + Sidebar -->
-		<main
-			class="mx-auto mt-6 grid max-w-7xl gap-6 px-4 pb-16 sm:px-6 lg:grid-cols-[1fr,320px] lg:px-8"
-		>
-			<!-- Todo List -->
-			<section class="space-y-4">
-				<!-- Group: Hari Ini -->
-				<div class="overflow-hidden rounded-2xl border border-slate-200 bg-white shadow-soft">
-					<div
-						class="flex items-center justify-between border-b border-slate-100 bg-slate-50 px-5 py-3"
-					>
-						<h2 class="text-sm font-semibold tracking-wide text-slate-700 uppercase">Hari Ini</h2>
-						<span class="text-xs text-slate-500">4 tugas</span>
-					</div>
-					<ul class="divide-y divide-slate-100">
-						<!-- Item -->
-						<li class="p-5 hover:bg-slate-50/60">
-							<div class="flex items-start gap-4">
-								<input
-									type="checkbox"
-									id="todo1"
-									class="peer mt-1.5 h-5 w-5 shrink-0 cursor-pointer rounded accent-brand-600"
-								/>
-								<label
-									for="todo1"
-									class="w-full cursor-pointer peer-checked:line-through peer-checked:decoration-slate-400 peer-checked:opacity-60"
-								>
-									<h3 class="text-lg font-semibold text-slate-800">Desain Halaman Login</h3>
-									<p class="mt-1 text-sm text-slate-600">
-										Buat layout modern untuk halaman login dengan Tailwind.
-									</p>
-									<div class="mt-3 flex flex-wrap gap-2">
-										<span
-											class="rounded-full border border-indigo-200 bg-indigo-50 px-2 py-0.5 text-xs text-indigo-700"
-											>UI/UX</span
-										>
-										<span
-											class="rounded-full border border-amber-200 bg-amber-50 px-2 py-0.5 text-xs text-amber-700"
-											>Medium</span
-										>
-										<span
-											class="hidden rounded-full border border-emerald-200 bg-emerald-50 px-2 py-0.5 text-xs text-emerald-700 peer-checked:inline"
-											>Selesai</span
-										>
-									</div>
-								</label>
-							</div>
-						</li>
-					</ul>
-				</div>
-			</section>
+          <!-- Toolbar -->
+          <section class="bg-white rounded-2xl border border-slate-200 p-4">
+            <div class="flex flex-col gap-3 md:flex-row md:items-center md:justify-between">
+              <div class="flex gap-2">
+                <input id="search" type="search" placeholder="Cari tugas..." class="w-64 px-3 py-2 text-sm rounded-xl border border-slate-200 focus:outline-none focus:ring-2 focus:ring-brand-500" />
+                <select id="filterStatus" class="px-3 py-2 text-sm rounded-xl border border-slate-200">
+                  <option value="">Semua status</option>
+                  <option value="pending">Pending</option>
+                  <option value="in_progress">In Progress</option>
+                  <option value="completed">Completed</option>
+                </select>
+                <select id="filterPriority" class="px-3 py-2 text-sm rounded-xl border border-slate-200">
+                  <option value="">Semua prioritas</option>
+                  <option value="low">Low</option>
+                  <option value="medium">Medium</option>
+                  <option value="high">High</option>
+                  <option value="urgent">Urgent</option>
+                </select>
+              </div>
+              <div class="text-sm text-slate-500">Klik baris untuk edit. Centang untuk selesai.</div>
+            </div>
+          </section>
 
-			<!-- Sidebar -->
-			<aside class="space-y-4">
-				<div class="rounded-2xl border border-slate-200 bg-white p-5 shadow-soft">
-					<h3 class="text-sm font-semibold text-slate-700">Ringkas Status</h3>
-					<ul class="mt-3 space-y-2 text-sm">
-						<li class="flex items-center justify-between">
-							<span class="inline-flex items-center gap-2"
-								><span class="h-2.5 w-2.5 rounded-full bg-slate-300"></span> Belum Dimulai</span
-							>
-							<span class="font-medium">9</span>
-						</li>
-						<li class="flex items-center justify-between">
-							<span class="inline-flex items-center gap-2"
-								><span class="h-2.5 w-2.5 rounded-full bg-amber-400"></span> Progres</span
-							>
-							<span class="font-medium">6</span>
-						</li>
-						<li class="flex items-center justify-between">
-							<span class="inline-flex items-center gap-2"
-								><span class="h-2.5 w-2.5 rounded-full bg-emerald-500"></span> Selesai</span
-							>
-							<span class="font-medium">14</span>
-						</li>
-					</ul>
-				</div>
+          <!-- Grid: Table + Kanban -->
+          <section class="grid xl:grid-cols-2 gap-6">
+            <!-- Table -->
+            <div class="bg-white rounded-2xl border border-slate-200 overflow-hidden">
+              <div class="px-4 py-3 border-b border-slate-200 flex items-center justify-between">
+                <h2 class="font-semibold">Daftar Tugas</h2>
+                <div class="text-xs text-slate-500" id="tableInfo">0 item</div>
+              </div>
+              <div class="overflow-x-auto">
+                <table class="min-w-full text-sm">
+                  <thead class="bg-slate-50 text-slate-600">
+                    <tr>
+                      <th class="text-left px-4 py-2">Selesai</th>
+                      <th class="text-left px-4 py-2">Judul</th>
+                      <th class="text-left px-4 py-2">Prioritas</th>
+                      <th class="text-left px-4 py-2">Status</th>
+                      <th class="text-left px-4 py-2">Jatuh Tempo</th>
+                    </tr>
+                  </thead>
+                  <tbody id="tbody" class="divide-y divide-slate-100"></tbody>
+                </table>
+              </div>
+            </div>
 
-				<div class="rounded-2xl border border-slate-200 bg-white p-5 shadow-soft">
-					<h3 class="text-sm font-semibold text-slate-700">Tag Populer</h3>
-					<div class="mt-3 flex flex-wrap gap-2">
-						<a
-							href="#"
-							class="rounded-full border border-slate-200 px-3 py-1.5 text-sm hover:bg-slate-50"
-							>UI/UX</a
-						>
-						<a
-							href="#"
-							class="rounded-full border border-slate-200 px-3 py-1.5 text-sm hover:bg-slate-50"
-							>Auth</a
-						>
-						<a
-							href="#"
-							class="rounded-full border border-slate-200 px-3 py-1.5 text-sm hover:bg-slate-50"
-							>API</a
-						>
-						<a
-							href="#"
-							class="rounded-full border border-slate-200 px-3 py-1.5 text-sm hover:bg-slate-50"
-							>Docs</a
-						>
-						<a
-							href="#"
-							class="rounded-full border border-slate-200 px-3 py-1.5 text-sm hover:bg-slate-50"
-							>Polish</a
-						>
-					</div>
-				</div>
+            <!-- Kanban -->
+            <div class="bg-white rounded-2xl border border-slate-200 p-4">
+              <h2 class="font-semibold mb-4">Kanban</h2>
+              <div class="grid grid-cols-3 gap-3">
+                <div>
+                  <div class="flex items-center justify-between mb-2">
+                    <div class="text-sm font-medium">Pending</div>
+                    <span id="kPending" class="text-xs text-slate-500">0</span>
+                  </div>
+                  <div id="colPending" class="min-h-40 max-h-96 overflow-y-auto no-scrollbar rounded-xl p-2 bg-slate-50 space-y-2" data-status="pending"></div>
+                </div>
+                <div>
+                  <div class="flex items-center justify-between mb-2">
+                    <div class="text-sm font-medium">In Progress</div>
+                    <span id="kProgress" class="text-xs text-slate-500">0</span>
+                  </div>
+                  <div id="colProgress" class="min-h-40 max-h-96 overflow-y-auto no-scrollbar rounded-xl p-2 bg-slate-50 space-y-2" data-status="in_progress"></div>
+                </div>
+                <div>
+                  <div class="flex items-center justify-between mb-2">
+                    <div class="text-sm font-medium">Completed</div>
+                    <span id="kCompleted" class="text-xs text-slate-500">0</span>
+                  </div>
+                  <div id="colCompleted" class="min-h-40 max-h-96 overflow-y-auto no-scrollbar rounded-xl p-2 bg-slate-50 space-y-2" data-status="completed"></div>
+                </div>
+              </div>
+            </div>
+          </section>
+        </div>
+      </main>
+    </div>
 
-				<div class="rounded-2xl border border-slate-200 bg-white p-5 shadow-soft">
-					<h3 class="text-sm font-semibold text-slate-700">Shortcut</h3>
-					<ul class="mt-3 space-y-2 text-sm">
-						<li><a href="#" class="text-brand-700 hover:underline">Tambah Tugas</a></li>
-						<li><a href="#" class="text-brand-700 hover:underline">Impor CSV</a></li>
-						<li><a href="#" class="text-brand-700 hover:underline">Template</a></li>
-					</ul>
-				</div>
-			</aside>
-		</main>
+    <!-- Modal -->
+    <div id="modal" class="fixed inset-0 z-50 hidden">
+      <div class="absolute inset-0 bg-slate-900/40"></div>
+      <div class="relative mx-auto my-10 w-[92%] max-w-lg">
+        <div class="bg-white rounded-2xl shadow-xl border border-slate-200">
+          <div class="px-5 py-4 border-b border-slate-200 flex items-center justify-between">
+            <h3 id="modalTitle" class="font-semibold">Tambah Tugas</h3>
+            <button id="closeModal" class="size-8 grid place-items-center rounded-xl hover:bg-slate-100">✕</button>
+          </div>
+          <form id="taskForm" class="p-5 space-y-3">
+            <input type="hidden" id="taskId" />
+            <div class="space-y-1">
+              <label class="text-sm">Judul</label>
+              <input id="title" required class="w-full px-3 py-2 rounded-xl border border-slate-200" placeholder="Contoh: Setup Drizzle schema" />
+            </div>
+            <div class="space-y-1">
+              <label class="text-sm">Deskripsi</label>
+              <textarea id="desc" rows="3" class="w-full px-3 py-2 rounded-xl border border-slate-200" placeholder="Detail singkat"></textarea>
+            </div>
+            <div class="grid grid-cols-1 sm:grid-cols-3 gap-3">
+              <div class="space-y-1">
+                <label class="text-sm">Prioritas</label>
+                <select id="priority" class="w-full px-3 py-2 rounded-xl border border-slate-200">
+                  <option value="low">Low</option>
+                  <option value="medium" selected>Medium</option>
+                  <option value="high">High</option>
+                  <option value="urgent">Urgent</option>
+                </select>
+              </div>
+              <div class="space-y-1">
+                <label class="text-sm">Status</label>
+                <select id="status" class="w-full px-3 py-2 rounded-xl border border-slate-200">
+                  <option value="pending">Pending</option>
+                  <option value="in_progress">In Progress</option>
+                  <option value="completed">Completed</option>
+                </select>
+              </div>
+              <div class="space-y-1">
+                <label class="text-sm">Jatuh Tempo</label>
+                <input id="due" type="date" class="w-full px-3 py-2 rounded-xl border border-slate-200" />
+              </div>
+            </div>
+            <div class="pt-2 flex justify-end gap-2">
+              <button type="button" id="cancelBtn" class="px-3 py-2 text-sm rounded-xl border border-slate-200">Batal</button>
+              <button class="px-4 py-2 text-sm rounded-xl bg-brand-600 text-white hover:bg-brand-700">Simpan</button>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
 
-		<!-- Footer -->
-		<footer class="mt-6 border-t border-slate-200">
-			<div class="mx-auto max-w-7xl px-4 py-8 text-sm text-slate-500 sm:px-6 lg:px-8">
-				Dibuat dengan Tailwind — UI statis untuk contoh Todo List.
-			</div>
-		</footer>
-	</body>
+    <!-- Scripts -->
+    <script>
+      const $ = (s, el=document) => el.querySelector(s);
+      const $$ = (s, el=document) => Array.from(el.querySelectorAll(s));
+
+      // Storage helpers
+      const KEY = 'todo-dashboard-items:v1';
+      const load = () => JSON.parse(localStorage.getItem(KEY) || '[]');
+      const save = (items) => localStorage.setItem(KEY, JSON.stringify(items));
+
+      // State
+      let items = load();
+
+      // Elements
+      const tbody = $('#tbody');
+      const tableInfo = $('#tableInfo');
+      const search = $('#search');
+      const filterStatus = $('#filterStatus');
+      const filterPriority = $('#filterPriority');
+
+      const kpiTotal = $('#kpiTotal');
+      const kpiDone = $('#kpiDone');
+      const kpiProgress = $('#kpiProgress');
+      const kpiPending = $('#kpiPending');
+
+      const kPending = $('#kPending');
+      const kProgress = $('#kProgress');
+      const kCompleted = $('#kCompleted');
+
+      const colPending = $('#colPending');
+      const colProgress = $('#colProgress');
+      const colCompleted = $('#colCompleted');
+
+      // Modal
+      const modal = $('#modal');
+      const modalTitle = $('#modalTitle');
+      const addBtn = $('#addBtn');
+      const closeModal = $('#closeModal');
+      const cancelBtn = $('#cancelBtn');
+      const taskForm = $('#taskForm');
+      const taskId = $('#taskId');
+      const title = $('#title');
+      const desc = $('#desc');
+      const priority = $('#priority');
+      const statusSel = $('#status');
+      const due = $('#due');
+
+      // Theme toggle
+      $('#themeBtn').addEventListener('click', () => {
+        document.documentElement.classList.toggle('dark');
+      });
+
+      // Seed demo data once
+      if (items.length === 0) {
+        items = [
+          { id: crypto.randomUUID(), title: 'Setup Drizzle schema', desc: 'Buat tabel todos + users', priority: 'high', status: 'in_progress', due: '' , done: false },
+          { id: crypto.randomUUID(), title: 'Rancang UI Kanban', desc: '3 kolom + drag handle', priority: 'medium', status: 'pending', due: '' , done: false },
+          { id: crypto.randomUUID(), title: 'Integrasi Auth', desc: 'JWT + guard', priority: 'urgent', status: 'pending', due: '' , done: false },
+          { id: crypto.randomUUID(), title: 'Write docs', desc: 'README + komentar', priority: 'low', status: 'completed', due: '' , done: true }
+        ];
+        save(items);
+      }
+
+      // Utils
+      const badge = (status) => {
+        const map = {
+          pending: 'bg-amber-100 text-amber-700',
+          in_progress: 'bg-sky-100 text-sky-700',
+          completed: 'bg-emerald-100 text-emerald-700'
+        };
+        return `<span class="px-2.5 py-1 text-xs rounded-full ${map[status]||'bg-slate-100'}">${status.replace('_',' ')}</span>`;
+      };
+      const pBadge = (p) => {
+        const map = {
+          low:'bg-slate-100 text-slate-700',
+          medium:'bg-indigo-100 text-indigo-700',
+          high:'bg-fuchsia-100 text-fuchsia-700',
+          urgent:'bg-rose-100 text-rose-700'
+        };
+        return `<span class="px-2.5 py-1 text-xs rounded-full ${map[p]||'bg-slate-100'}">${p}</span>`;
+      };
+
+      function openModal(edit=false, data=null){
+        modal.classList.remove('hidden');
+        if(edit && data){
+          modalTitle.textContent = 'Edit Tugas';
+          taskId.value = data.id;
+          title.value = data.title;
+          desc.value = data.desc||'';
+          priority.value = data.priority;
+          statusSel.value = data.status;
+          due.value = data.due||'';
+        } else {
+          modalTitle.textContent = 'Tambah Tugas';
+          taskId.value = '';
+          taskForm.reset();
+        }
+      }
+      function closeModalFn(){ modal.classList.add('hidden'); }
+
+      addBtn.addEventListener('click', () => openModal());
+      closeModal.addEventListener('click', closeModalFn);
+      cancelBtn.addEventListener('click', closeModalFn);
+
+      taskForm.addEventListener('submit', (e) => {
+        e.preventDefault();
+        const data = {
+          id: taskId.value || crypto.randomUUID(),
+          title: title.value.trim(),
+          desc: desc.value.trim(),
+          priority: priority.value,
+          status: statusSel.value,
+          due: due.value,
+          done: statusSel.value === 'completed'
+        };
+        if(taskId.value){
+          items = items.map(it => it.id===data.id? data: it);
+        } else {
+          items.unshift(data);
+        }
+        save(items);
+        closeModalFn();
+        render();
+      });
+
+      // Filters
+      [search, filterStatus, filterPriority].forEach(el => el.addEventListener('input', render));
+
+      // Row actions
+      function onToggleDone(id, checked){
+        items = items.map(it => it.id===id? { ...it, done: checked, status: checked? 'completed': (it.status==='completed'? 'pending': it.status) }: it);
+        save(items);
+        render();
+      }
+      function onRowEdit(id){
+        const it = items.find(x => x.id===id);
+        if(it) openModal(true, it);
+      }
+
+      // Kanban drag & drop
+      function setupDnD(){
+        $$('.card').forEach(card => {
+          card.addEventListener('dragstart', (e)=>{
+            e.dataTransfer.setData('text/plain', card.dataset.id);
+          });
+        });
+        [colPending, colProgress, colCompleted].forEach(col => {
+          col.addEventListener('dragover', (e)=> e.preventDefault());
+          col.addEventListener('drop', (e)=>{
+            e.preventDefault();
+            const id = e.dataTransfer.getData('text/plain');
+            const status = col.dataset.status;
+            items = items.map(it => it.id===id? { ...it, status, done: status==='completed' }: it);
+            save(items);
+            render();
+          });
+        });
+      }
+
+      function filtered(){
+        const q = search.value.toLowerCase();
+        const st = filterStatus.value;
+        const pr = filterPriority.value;
+        return items.filter(it => {
+          const okQ = !q || it.title.toLowerCase().includes(q) || (it.desc||'').toLowerCase().includes(q);
+          const okS = !st || it.status === st;
+          const okP = !pr || it.priority === pr;
+          return okQ && okS && okP;
+        });
+      }
+
+      function render(){
+        const arr = filtered();
+        // KPIs
+        kpiTotal.textContent = items.length;
+        kpiDone.textContent = items.filter(x=>x.status==='completed').length;
+        kpiProgress.textContent = items.filter(x=>x.status==='in_progress').length;
+        kpiPending.textContent = items.filter(x=>x.status==='pending').length;
+
+        // Table
+        tableInfo.textContent = `${arr.length} item`;
+        tbody.innerHTML = arr.map(it => `
+          <tr class="hover:bg-slate-50">
+            <td class="px-4 py-2 align-top">
+              <input type="checkbox" ${it.done? 'checked': ''} aria-label="Selesai" class="size-4" onchange="onToggleDone('${it.id}', this.checked)" />
+            </td>
+            <td class="px-4 py-2 align-top">
+              <button class="text-left" onclick="onRowEdit('${it.id}')">
+                <div class="font-medium">${it.title}</div>
+                <div class="text-xs text-slate-500 line-clamp-2">${(it.desc||'')}</div>
+              </button>
+            </td>
+            <td class="px-4 py-2 align-top">${pBadge(it.priority)}</td>
+            <td class="px-4 py-2 align-top">${badge(it.status)}</td>
+            <td class="px-4 py-2 align-top text-slate-500">${it.due||'-'}</td>
+          </tr>
+        `).join('');
+
+        // Kanban
+        const P = arr.filter(x=>x.status==='pending');
+        const G = arr.filter(x=>x.status==='in_progress');
+        const C = arr.filter(x=>x.status==='completed');
+        kPending.textContent = P.length; kProgress.textContent = G.length; kCompleted.textContent = C.length;
+        function card(it){
+          return `<article draggable="true" data-id="${it.id}" class="card rounded-xl border border-slate-200 bg-white p-3 shadow-sm">
+            <div class="text-sm font-medium">${it.title}</div>
+            <div class="text-xs text-slate-500">${it.desc||''}</div>
+            <div class="mt-2 flex items-center gap-2">${pBadge(it.priority)} ${badge(it.status)}</div>
+          </article>`;
+        }
+        colPending.innerHTML = P.map(card).join('');
+        colProgress.innerHTML = G.map(card).join('');
+        colCompleted.innerHTML = C.map(card).join('');
+        setupDnD();
+      }
+
+      // Expose a couple of handlers for inline HTML events
+      window.onToggleDone = onToggleDone;
+      window.onRowEdit = onRowEdit;
+
+      render();
+    </script>
+  </body>
 </html>

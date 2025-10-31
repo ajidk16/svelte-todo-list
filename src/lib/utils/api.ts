@@ -1,8 +1,8 @@
 import { PUBLIC_BACKEND_URL } from '$env/static/public';
-import { getCookie } from '$lib/store/cookies';
+import { getToken } from '$lib/store/cookies';
 
 export const api = async (url: string, options: RequestInit = {}) => {
-	const token = getCookie('auth') ?? '';
+	const token = getToken('auth') ?? '';
 	const headers = {
 		...(token ? { Authorization: `Bearer ${token}` } : undefined),
 		...options.headers
