@@ -1,12 +1,23 @@
-<script>
+<script lang="ts">
 	import { enhance } from '$app/forms';
 	import { page } from '$app/state';
 
-	const listenav = [
-		{ name: 'Dashboard', href: '/dashboard' },
-		{ name: 'Todo', href: '/todo' },
-		{ name: 'Kanban', href: '/kanban' }
-	];
+	const { user } = $props<{
+		user?: { username: string; email: string; verified: boolean };
+	}>();
+
+	// svelte-ignore non_reactive_update
+	let listNavbar: { name: string; href: string }[];
+
+	if (user?.verified === true) {
+		listNavbar = [
+			{ name: 'Dashboard', href: '/dashboard' },
+			{ name: 'Todo', href: '/todo' },
+			{ name: 'Kanban', href: '/kanban' }
+		];
+	} else {
+		listNavbar = [{ name: 'Dashboard', href: '/dashboard' }];
+	}
 
 	const pathname = $derived(page.url.pathname);
 </script>
@@ -22,7 +33,7 @@
 			<h1 class="text-lg font-semibold tracking-tight sm:text-xl">Todo List</h1>
 		</div>
 		<nav class="hidden items-center gap-6 text-sm text-slate-600 md:flex">
-			{#each listenav as item}
+			{#each listNavbar as item}
 				<a
 					href={item.href}
 					class={`hover:text-brand-600 ${pathname === item.href ? 'rounded-lg border px-3 py-0.5 text-brand-600' : ''}`}
@@ -33,13 +44,29 @@
 		<div class="flex items-center gap-3">
 			<div class="relative">
 				<button
-					class="group flex cursor-pointer items-center gap-2 rounded-full bg-slate-100 p-1.5 hover:bg-slate-200 focus:outline-none"
+					class="group flex cursor-pointer items-center gap-2 rounded-full bg-slate-100 p-1.5 capitalize hover:bg-slate-200 focus:outline-none"
 				>
 					<img
-						src="https://ui-avatars.com/api/?name=Suraji&background=0D8ABC&color=fff"
+						src="https://ui-avatars.com/api/?name={user?.username}&background=0D8ABC&color=fff"
 						alt="Avatar"
 						class="h-8 w-8 rounded-full"
 					/>
+					{user?.username}
+					<span class="sr-only">Open user menu</span>
+					<svg
+						class="h-4 w-4 text-slate-600 group-hover:text-slate-800"
+						xmlns="http://www.w3.org/2000/svg"
+						fill="none"
+						viewBox="0 0 24 24"
+						stroke="currentColor"
+					>
+						<path
+							stroke-linecap="round"
+							stroke-linejoin="round"
+							stroke-width="2"
+							d="M6 9l6 6 6-6"
+						/>
+					</svg>
 				</button>
 				<div
 					class="ring-opacity-5 absolute right-0 z-10 mt-2 hidden w-40 rounded-md border-none bg-white shadow-lg ring-1 ring-brand-500 group-hover:block group-focus:tracking-normal"
@@ -49,9 +76,9 @@
 						<li>
 							<a href="/profile/tags" class="block px-4 py-2 hover:bg-slate-100">Profile</a>
 						</li>
-						<li>
+						<!-- <li>
 							<a href="/master-data" class="block px-4 py-2 hover:bg-slate-100">Master Data</a>
-						</li>
+						</li> -->
 						<li>
 							<form method="POST" action="/auth/logout" use:enhance>
 								<button

@@ -114,7 +114,7 @@
 		debouncedGoto(query);
 	}
 
-	const editing = { id: '', name: 'tes', label: 'tes', color: '#ffffff', sortOrder: 0 };
+	const editing = { id: '', name: '', label: '', color: '#ffffff', sortOrder: 0 };
 
 	let modal = $state(false);
 	let editingStatus = $state(editing);
@@ -140,7 +140,7 @@
 	<DataTable
 		{columns}
 		data={todoStatus}
-		total={data.todoStatus.pagination.total}
+		total={data?.todoStatus?.pagination?.total}
 		selectable
 		searchable
 		stickyHeader

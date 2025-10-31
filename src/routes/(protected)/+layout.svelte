@@ -1,11 +1,16 @@
 <script lang="ts">
 	import { Footer, Navbar } from '$lib/components/shared';
+
+	const { data } = $props();
 </script>
 
-<div class="bg-slate-50 text-slate-800 antialiased min-h-screen flex flex-col">
-	<Navbar />
+<div class="flex min-h-screen flex-col bg-slate-50 text-slate-800 antialiased">
+	<Navbar user={data.user} />
+
+	<!-- svelte-ignore slot_element_deprecated -->
 	<main class="flex-1">
 		<slot />
 	</main>
+
 	<Footer />
 </div>

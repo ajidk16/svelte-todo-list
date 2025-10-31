@@ -1,10 +1,10 @@
 <script lang="ts">
 	import { enhance } from '$app/forms';
-	import { ArrowRight, Loader } from 'lucide-svelte';
-	let showPassword = false;
+	import { goto } from '$app/navigation';
+	import { AlarmClockCheck, ArrowRight, Loader } from 'lucide-svelte';
+	let showPassword = $state(false);
 	let dark = false;
 
-	// Persist dark mode dengan localStorage
 	if (typeof window !== 'undefined') {
 		dark =
 			localStorage.getItem('theme') === 'dark' ||
@@ -12,25 +12,15 @@
 		document.documentElement.classList.toggle('dark', dark);
 	}
 
-	function toggleTheme() {
-		dark = !dark;
-		document.documentElement.classList.toggle('dark', dark);
-		localStorage.setItem('theme', dark ? 'dark' : 'light');
-	}
-
-	function togglePassword() {
-		showPassword = !showPassword;
-	}
-
 	const year = new Date().getFullYear();
 
-	let loading = false;
-	let errorMessage = '';
+	let isPageLoaded = $state(false);
+	let loading = $state(false);
+	let errorMessage = $state('');
 </script>
 
 <div class="bg-gray-50 text-gray-800 dark:bg-gray-950 dark:text-gray-100">
 	<div class="grid min-h-dvh md:grid-cols-2">
-		<!-- Panel brand -->
 		<aside
 			class="relative hidden items-center justify-center overflow-hidden bg-linear-to-br from-brand-600 via-brand-700 to-brand-900 p-10 md:flex"
 		>
@@ -42,19 +32,7 @@
 					<div
 						class="grid h-10 w-10 place-items-center rounded-2xl bg-white/15 ring-1 ring-white/30 backdrop-blur"
 					>
-						<svg width="22" height="22" viewBox="0 0 24 24" fill="none" class="text-white">
-							<path
-								d="M12 3l8 4.5v9L12 21l-8-4.5v-9L12 3z"
-								stroke="currentColor"
-								stroke-width="1.5"
-							/>
-							<path
-								d="M12 8v8M7.5 10.5l9 5"
-								stroke="currentColor"
-								stroke-width="1.5"
-								opacity=".7"
-							/>
-						</svg>
+						<AlarmClockCheck size={24} />
 					</div>
 					<span class="text-xl font-semibold tracking-tight">ToDo List</span>
 				</div>
@@ -72,9 +50,13 @@
 					class="rounded-2xl bg-white/90 p-6 shadow-soft ring-1 ring-gray-200/70 backdrop-blur md:p-8 dark:bg-gray-900/70 dark:ring-white/5"
 				>
 					<div class="mb-6">
-						<h2 class="text-2xl font-semibold tracking-tight">Masuk</h2>
+						<h2 class="text-2xl font-semibold tracking-tight">
+							{isPageLoaded === false ? 'Masuk' : 'Daftar'}
+						</h2>
 						<p class="mt-1 text-sm text-gray-500 dark:text-gray-400">
-							Gunakan username dan kata sandi akunmu.
+							{isPageLoaded
+								? 'Gunakan username dan kata sandi akunmu.'
+								: 'Buat akun baru untuk memulai.'}
 						</p>
 					</div>
 
@@ -86,14 +68,17 @@
 					<form
 						method="POST"
 						class="space-y-5"
-						use:enhance={({ formElement, formData, action, cancel, submitter }) => {
-							// console.log('formElement', formElement);
-							// console.log('formData', formData);
-							// console.log('action', action);
-							// console.log('submitter', submitter);
-
+						action={isPageLoaded === false ? '?/login' : '?/register'}
+						use:enhance={() => {
 							loading = true;
-							errorMessage = '';
+
+							return async ({ result }: any) => {
+								errorMessage = result?.data?.message || '';
+								loading = false;
+								goto('/dashboard');
+								// `result` is an `ActionResult` object
+								// `update` is a function which triggers the default logic that would be triggered if this callback wasn't set
+							};
 						}}
 					>
 						<div>
@@ -106,6 +91,20 @@
 								class="w-full rounded-xl border border-gray-300/80 bg-white px-3.5 py-2.5 text-sm ring-2 ring-transparent outline-none focus:border-brand-500 focus:ring-brand-200 dark:border-white/10 dark:bg-gray-900 dark:focus:ring-brand-800"
 							/>
 						</div>
+
+						{#if isPageLoaded === true}
+							<div>
+								<label for="email" class="mb-1 block text-sm font-medium">Email</label>
+								<input
+									id="email"
+									name="email"
+									type="email"
+									required
+									placeholder="kamu@contoh.com"
+									class="w-full rounded-xl border border-gray-300/80 bg-white px-3.5 py-2.5 text-sm ring-2 ring-transparent outline-none focus:border-brand-500 focus:ring-brand-200 dark:border-white/10 dark:bg-gray-900 dark:focus:ring-brand-800"
+								/>
+							</div>
+						{/if}
 
 						<div>
 							<label for="password" class="mb-1 block text-sm font-medium">Kata Sandi</label>
@@ -120,7 +119,9 @@
 									class="w-full rounded-xl border border-gray-300/80 bg-white px-3.5 py-2.5 pr-11 text-sm ring-2 ring-transparent outline-none focus:border-brand-500 focus:ring-brand-200 dark:border-white/10 dark:bg-gray-900 dark:focus:ring-brand-800"
 								/>
 								<button
-									on:click|preventDefault={togglePassword}
+									onclick={() => {
+										showPassword = !showPassword;
+									}}
 									type="button"
 									aria-label="Tampilkan sandi"
 									class="absolute inset-y-0 right-2.5 my-auto grid h-8 w-8 place-items-center rounded-lg text-gray-500 hover:bg-gray-100 dark:hover:bg-white/10"
@@ -157,11 +158,9 @@
 								/>
 								Ingat saya
 							</label>
-							<button
-								type="button"
-								on:click={toggleTheme}
-								class="text-sm text-gray-600 dark:text-gray-300">Toggle tema</button
-							>
+							<!-- <button type="button" class="text-sm text-gray-600 dark:text-gray-300"
+								>Toggle tema</button
+							> -->
 						</div>
 
 						<button
@@ -178,10 +177,23 @@
 								<span class="transition-transform duration-200 group-hover:translate-x-1">
 									<ArrowRight size={16} />
 								</span>
-								Masuk
+								{isPageLoaded === false ? 'Masuk' : 'Daftar'}
 							{/if}
 						</button>
 					</form>
+
+					<!-- Footer -->
+					<hr class="my-6 border-gray-200 dark:border-gray-800" />
+					<div class="text-center text-sm text-gray-600 dark:text-gray-300">
+						{isPageLoaded === false ? 'Belum punya akun? ' : 'Sudah punya akun? '}
+						<button
+							onclick={() => {
+								isPageLoaded = !isPageLoaded;
+							}}
+							class="cursor-pointer font-medium text-brand-600 hover:underline"
+							>{isPageLoaded === false ? 'Daftar di sini' : 'Masuk di sini'}</button
+						>
+					</div>
 
 					<p class="mt-6 text-center text-sm text-gray-600 dark:text-gray-300">
 						© {year} ToDo List. Semua hak dilindungi.

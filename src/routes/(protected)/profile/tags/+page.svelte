@@ -124,7 +124,7 @@
 	<DataTable
 		{columns}
 		data={tags}
-		total={data.tags.pagination.total}
+		total={data?.tags?.pagination?.total}
 		selectable
 		searchable
 		stickyHeader
