@@ -10,14 +10,6 @@
 
 	const user = getCookie('userProfile') as unknown as UserProfile;
 
-	console.log('User Profile Cookie:', user);
-
-	let profile = {
-		name: 'John Doe',
-		email: 'john@example.com',
-		otpEnabled: true
-	};
-
 	let listAside = [
 		// { title: 'Overview', url: '/profile' },
 		{ title: 'Tags', url: '/profile/tags' },

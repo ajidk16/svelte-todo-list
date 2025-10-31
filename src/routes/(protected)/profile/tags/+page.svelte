@@ -17,8 +17,6 @@
 
 	let tags = $derived(data.tags.data);
 
-	console.log('find total', data.tags.pagination.total);
-
 	type Row = { id: string; color: string; name: string; status: string };
 
 	const columns: Column<Row>[] = [

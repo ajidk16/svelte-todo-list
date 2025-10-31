@@ -11,7 +11,7 @@
 	let { data } = $props();
 
 	const todos = $derived(data.todos.data);
-	const tags = $derived(data.tags);
+	const tags = $derived(data.tags.data);
 	const todoStatus = $derived(data.todoStatus.data);
 
 	const onPrev = (page: number, limit: number) => {

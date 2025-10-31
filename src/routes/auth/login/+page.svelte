@@ -1,7 +1,5 @@
 <script lang="ts">
 	import { enhance } from '$app/forms';
-	import { form } from '$app/server';
-	import { api } from '$lib/utils/api';
 	import { ArrowRight, Loader } from 'lucide-svelte';
 	let showPassword = false;
 	let dark = false;
@@ -28,30 +26,6 @@
 
 	let loading = false;
 	let errorMessage = '';
-
-	console.log(form);
-
-	const handleSubmit = async (e: Event) => {
-		e.preventDefault();
-
-		const formData = new FormData(e.target as HTMLFormElement);
-
-		loading = true;
-
-		const res = await api('/auth/login', {
-			method: 'POST',
-			body: formData
-		});
-
-		loading = false;
-
-		if (res.status !== 200) {
-			errorMessage = res.message || 'Login gagal';
-			return;
-		}
-
-		window.location.href = '/dashboard';
-	};
 </script>
 
 <div class="bg-gray-50 text-gray-800 dark:bg-gray-950 dark:text-gray-100">
@@ -108,9 +82,20 @@
 						<p class="mb-2 text-sm text-red-600">{errorMessage}</p>
 					{/if}
 
-					<!-- Gunakan form action bawaan SvelteKit -->
-					<form method="POST" class="space-y-5" use:enhance>
-					<!-- <form on:submit={handleSubmit} class="space-y-5" use:enhance> -->
+					<!-- svelte-ignore component_name_lowercase -->
+					<form
+						method="POST"
+						class="space-y-5"
+						use:enhance={({ formElement, formData, action, cancel, submitter }) => {
+							// console.log('formElement', formElement);
+							// console.log('formData', formData);
+							// console.log('action', action);
+							// console.log('submitter', submitter);
+
+							loading = true;
+							errorMessage = '';
+						}}
+					>
 						<div>
 							<label for="username" class="mb-1 block text-sm font-medium">Username</label>
 							<input
