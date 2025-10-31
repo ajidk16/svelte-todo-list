@@ -1,5 +1,6 @@
 <script lang="ts">
 	import { enhance } from '$app/forms';
+	import { form } from '$app/server';
 	import { api } from '$lib/utils/api';
 	import { ArrowRight, Loader } from 'lucide-svelte';
 	let showPassword = false;
@@ -27,6 +28,8 @@
 
 	let loading = false;
 	let errorMessage = '';
+
+	console.log(form);
 
 	const handleSubmit = async (e: Event) => {
 		e.preventDefault();
@@ -106,8 +109,8 @@
 					{/if}
 
 					<!-- Gunakan form action bawaan SvelteKit -->
-					<!-- <form method="POST" class="space-y-5" use:enhance> -->
-					<form on:submit={handleSubmit} class="space-y-5">
+					<form method="POST" class="space-y-5" use:enhance>
+					<!-- <form on:submit={handleSubmit} class="space-y-5" use:enhance> -->
 						<div>
 							<label for="username" class="mb-1 block text-sm font-medium">Username</label>
 							<input
