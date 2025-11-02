@@ -18,3 +18,23 @@ export const load = async ({ cookies }) => {
 		user: JSON.parse(cookies.get('userProfile') || 'null')
 	};
 };
+
+export const actions = {
+	verifyEmail: async ({ cookies }) => {
+		const authToken = cookies.get('auth');
+
+		console.log('authToken:', authToken);
+
+		console.log('verifyEmail action called', authToken);
+
+		const res = await api('/otp/send', {
+			method: 'GET',
+			headers: {
+				Authorization: `Bearer ${authToken}`,
+				'Content-Type': 'application/json'
+			}
+		});
+
+		return res;
+	}
+};
