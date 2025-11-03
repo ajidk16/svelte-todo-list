@@ -1,6 +1,6 @@
 import { api } from '$lib/utils/api.js';
 
-export const load = async ({ url }) => {
+export const load = async ({ url, cookies }) => {
 	const page = Number(url.searchParams.get('page')) || 1;
 	const limit = Number(url.searchParams.get('limit')) || 10;
 	const search = url.searchParams.get('search') ?? '';
@@ -10,7 +10,13 @@ export const load = async ({ url }) => {
 	params.set('limit', String(limit));
 	if (search) params.set('search', search);
 
-	const tags = await api(`/tags?${params.toString()}`);
+	const tags = await api(`/tags?${params.toString()}`, {
+		method: 'GET',
+		headers: {
+			'Content-Type': 'application/json',
+			Authorization: `Bearer ${cookies.get('auth')}`
+		}
+	});
 
 	return {
 		tags: tags
@@ -18,7 +24,7 @@ export const load = async ({ url }) => {
 };
 
 export const actions = {
-	create: async ({ request }) => {
+	create: async ({ request, cookies }) => {
 		const formData = await request.formData();
 		const name = formData.get('name');
 		const color = formData.get('color');
@@ -32,13 +38,14 @@ export const actions = {
 			method: 'POST',
 			body: JSON.stringify(newTag),
 			headers: {
-				'Content-Type': 'application/json'
+				'Content-Type': 'application/json',
+				Authorization: `Bearer ${cookies.get('auth')}`
 			}
 		});
 
 		return { createdTag };
 	},
-	update: async ({ request }) => {
+	update: async ({ request, cookies }) => {
 		const formData = await request.formData();
 		const id = formData.get('id');
 		const name = formData.get('name');
@@ -53,18 +60,23 @@ export const actions = {
 			method: 'PUT',
 			body: JSON.stringify(updatedTag),
 			headers: {
-				'Content-Type': 'application/json'
+				'Content-Type': 'application/json',
+				Authorization: `Bearer ${cookies.get('auth')}`
 			}
 		});
 
 		return { result };
 	},
-	delete: async ({ request }) => {
+	delete: async ({ request, cookies }) => {
 		const formData = await request.formData();
 		const id = formData.get('id');
 
 		const result = await api(`/tags/${id}`, {
-			method: 'DELETE'
+			method: 'DELETE',
+			headers: {
+				'Content-Type': 'application/json',
+				Authorization: `Bearer ${cookies.get('auth')}`
+			}
 		});
 
 		return { result };

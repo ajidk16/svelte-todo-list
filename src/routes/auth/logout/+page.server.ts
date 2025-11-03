@@ -14,8 +14,6 @@ export const actions = {
 	verify: async ({ cookies }) => {
 		const authToken = cookies.get('auth');
 
-		console.log('verifyEmail action called', authToken);
-
 		const res = await api('/otp/send', {
 			method: 'GET',
 			headers: {
