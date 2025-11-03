@@ -2,7 +2,7 @@ import { api } from '$lib/utils/api.js';
 import type { Actions } from './$types.js';
 import { fail } from '@sveltejs/kit';
 
-export const load = async ({ url }) => {
+export const load = async ({ url, cookies }) => {
 	const page = Number(url.searchParams.get('page')) || 1;
 	const limit = Number(url.searchParams.get('limit')) || 5;
 	const search = url.searchParams.get('search') ?? '';
@@ -10,10 +10,26 @@ export const load = async ({ url }) => {
 
 	const [todos, tags, todoStatus] = await Promise.all([
 		api(`/todos?page=${page}&limit=${limit}&search=${search}&dateFilter=${dateFilter}`, {
-			method: 'GET'
+			method: 'GET',
+			headers: {
+				Authorization: `Bearer ${cookies.get('auth')}`,
+				'Content-Type': 'application/json'
+			}
 		}),
-		api('/tags', { method: 'GET' }),
-		api('/todo-status', { method: 'GET' })
+		api('/tags', {
+			method: 'GET',
+			headers: {
+				Authorization: `Bearer ${cookies.get('auth')}`,
+				'Content-Type': 'application/json'
+			}
+		}),
+		api('/todo-status', {
+			method: 'GET',
+			headers: {
+				Authorization: `Bearer ${cookies.get('auth')}`,
+				'Content-Type': 'application/json'
+			}
+		})
 	]);
 
 	if (!todos || !tags || !todoStatus) {

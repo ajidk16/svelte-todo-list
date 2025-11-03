@@ -1,11 +1,13 @@
 import { api } from '$lib/utils/api.js';
 import { error } from '@sveltejs/kit';
 
-export const load = async ({ url, cookies }) => {
-	console.log('apa itu url', url.pathname);
-
+export const load = async ({ cookies }) => {
 	const kanban = await api('/todo-status', {
-		method: 'GET'
+		method: 'GET',
+		headers: {
+			Authorization: `Bearer ${cookies.get('auth')}`,
+			'Content-Type': 'application/json'
+		}
 	});
 
 	if (kanban.status === 404) {

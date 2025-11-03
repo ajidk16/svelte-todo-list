@@ -70,8 +70,6 @@
 					return col;
 				});
 
-				console.log('cek column id', columns[toColIdx].id);
-
 				// Update status todo di backend via API client-side
 				await api('/todos/' + dragged!.id, {
 					method: 'PUT',
@@ -79,8 +77,8 @@
 						status: columns[toColIdx].id
 					}),
 					headers: {
-						'Content-Type': 'application/json',
-						Authorization: 'Bearer ' + data.auth
+						Authorization: `Bearer ${data.auth}`,
+						'Content-Type': 'application/json'
 					}
 				});
 
