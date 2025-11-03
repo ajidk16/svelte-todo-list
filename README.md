@@ -1,38 +1,99 @@
-# sv
+## Setup Environment Variable (ENV)
 
-Everything you need to build a Svelte project, powered by [`sv`](https://github.com/sveltejs/cli).
+Aplikasi ini membutuhkan environment variable untuk konfigurasi backend API.
 
-## Creating a project
+1. **Buat file `.env` di root project**
 
-If you're seeing this, you've probably already done this step. Congrats!
+	Contoh isi file `.env`:
+	```env
+	PUBLIC_BACKEND_URL=http://localhost:3000
+	```
+	Ganti `http://localhost:3000` dengan URL backend API yang sesuai.
 
-```sh
-# create a new project in the current directory
-npx sv create
+2. **Restart server development** setelah mengubah file `.env`:
+	```bash
+	npm run dev
+	```
 
-# create a new project in my-app
-npx sv create my-app
+> Variabel `PUBLIC_BACKEND_URL` digunakan untuk semua request API dari frontend ke backend.
+# Svelte ToDo List
+
+Aplikasi ToDo List modern berbasis SvelteKit untuk mengelola aktivitas dan tugas harian secara efisien.
+
+
+## Petunjuk Penggunaan Lengkap
+
+### 1. Instalasi
+
+Clone repository ini dan install dependensi:
+
+```bash
+git clone <repo-url>
+cd svelte-todo-list
+npm install
 ```
 
-## Developing
+### 2. Menjalankan Aplikasi
 
-Once you've created a project and installed dependencies with `npm install` (or `pnpm install` or `yarn`), start a development server:
+Jalankan server pengembangan:
 
-```sh
+```bash
 npm run dev
-
-# or start the server and open the app in a new browser tab
-npm run dev -- --open
 ```
 
-## Building
+Buka browser ke `http://localhost:5173`.
 
-To create a production version of your app:
+### 3. Login
 
-```sh
+Masukkan username dan password yang valid pada halaman login. Jika belum ada akun, pastikan backend sudah menyediakan endpoint pendaftaran atau gunakan akun yang sudah ada.
+
+### 4. Navigasi Fitur
+
+- **Dashboard**: Melihat statistik tugas dan aktivitas.
+- **ToDo**: Menambah, mengedit, menghapus, dan memfilter tugas.
+- **Kanban**: Visualisasi tugas dalam bentuk board kolom (drag & drop status).
+- **Tag & Status**: Kelola tag dan status untuk mengelompokkan tugas.
+- **Profil**: Lihat dan edit data profil pengguna.
+- **Logout**: Keluar dari aplikasi dengan aman.
+
+### 5. Struktur Folder Penting
+
+- `src/routes/` : Semua halaman aplikasi (dashboard, todo, kanban, auth, dll)
+- `src/lib/components/` : Komponen UI reusable (button, modal, data-table, dsb)
+- `src/modules/` : Modul bisnis, seperti todo, tag, status
+- `src/lib/utils/` : Utility/helper (API, dsb)
+- `src/lib/store/` : Store Svelte untuk state management
+
+### 6. Testing
+
+Jalankan unit test:
+```bash
+npm run test:unit
+```
+Jalankan end-to-end test:
+```bash
+npm run test:e2e
+```
+
+### 7. Build untuk Produksi
+
+```bash
 npm run build
+npm run preview
 ```
+Aplikasi siap di-deploy ke platform seperti Vercel, Netlify, dsb.
 
-You can preview the production build with `npm run preview`.
+## Fitur Unggulan
 
-> To deploy your app, you may need to install an [adapter](https://svelte.dev/docs/kit/adapters) for your target environment.
+- **Manajemen ToDo**: Tambah, edit, hapus, dan filter tugas.
+- **Dashboard**: Statistik tugas dan aktivitas pengguna.
+- **Kanban Board**: Visualisasi tugas dalam bentuk kolom.
+- **Manajemen Tag & Status**: Kustomisasi tag dan status tugas.
+- **Profil Pengguna**: Lihat dan edit profil.
+- **Autentikasi**: Sistem login dan logout.
+- **UI Modern & Responsif**: Menggunakan TailwindCSS dan komponen Svelte custom.
+- **Testing**: Unit test & e2e test (Vitest & Playwright).
+
+---
+
+> Untuk pengembangan lebih lanjut, silakan lihat struktur folder di `src/` dan sesuaikan kebutuhan Anda.
