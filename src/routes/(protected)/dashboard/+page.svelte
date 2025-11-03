@@ -28,22 +28,10 @@
 			})
 		});
 
+		console.log('cek otp', res);
+
 		// Update cookie userProfile setelah verifikasi berhasil
-		if (res.status === 200 && res.data) {
-			const userProfile = {
-				id: res.data.data.id,
-				username: res.data.data.username,
-				email: res.data.data.email,
-				verified: res.data.data.verifiedEmail
-			};
-
-			console.log('cek user profile', userProfile);
-
-			document.cookie = `userProfile=${encodeURIComponent(
-				JSON.stringify(userProfile)
-			)}; path=/; max-age=${60 * 60 * 24 * 7}; SameSite=None; Secure`;
-
-			// alert('Akun Anda telah berhasil diverifikasi.');
+		if (res.status === 200) {
 			modal = true;
 		}
 	});

@@ -1,6 +1,10 @@
 <script lang="ts">
 	import { enhance } from '$app/forms';
+	import { goto } from '$app/navigation';
 	import { page } from '$app/state';
+	import { Menu, X } from 'lucide-svelte';
+
+	let menuOpen = $state(false);
 
 	const { user } = $props<{
 		user?: { username: string; email: string; verified: boolean };
@@ -41,7 +45,7 @@
 				>
 			{/each}
 		</nav>
-		<div class="flex items-center gap-3">
+		<div class="hidden items-center gap-3 md:flex">
 			<div class="relative">
 				<button
 					class="group flex cursor-pointer items-center gap-2 rounded-full bg-slate-100 p-1.5 capitalize hover:bg-slate-200 focus:outline-none"
@@ -91,8 +95,61 @@
 				</div>
 			</div>
 		</div>
+
+		<button
+			onclick={() => {
+				menuOpen = true;
+				document.body.style.overflow = 'hidden';
+			}}
+			type="button"
+			class="inline-flex items-center justify-center rounded-md bg-white p-2 text-slate-400 hover:bg-slate-100 hover:text-slate-500 focus:outline-none md:hidden"
+		>
+			<span class="sr-only">Open main menu</span>
+			<Menu size="24" />
+		</button>
 	</div>
 </header>
+
+{#if menuOpen}
+	<div
+		class="fixed inset-0 z-50 flex scroll-smooth bg-black/45 md:hidden"
+		onclick={() => (menuOpen = false)}
+		onkeydown={(e) => e.key === 'Escape' && (menuOpen = false)}
+		role="button"
+		tabindex="0"
+	>
+		<div class="relative ml-auto w-64 space-y-4 bg-white p-6">
+			<div class="flex items-center justify-between">
+				<div class="flex items-center gap-3">
+					<h1 class="text-lg font-semibold tracking-tight sm:text-xl">Todo List</h1>
+				</div>
+				<button
+					onclick={() => {
+						menuOpen = false;
+						document.body.style.overflow = 'hidden';
+					}}
+					type="button"
+					class="inline-flex cursor-pointer items-center justify-center rounded-md bg-white text-black hover:bg-slate-100 hover:text-slate-500 focus:outline-none"
+				>
+					<X size="24" />
+				</button>
+			</div>
+			<nav class="flex flex-col gap-4">
+				{#each listNavbar as item}
+					<button
+						onclick={() => {
+							menuOpen = false;
+							goto(item.href);
+							document.body.style.overflow = 'hidden';
+						}}
+						class={`text-left hover:text-brand-600 ${pathname === item.href ? 'rounded-lg border px-3 py-0.5 text-brand-600' : ''}`}
+						>{item.name}</button
+					>
+				{/each}
+			</nav>
+		</div>
+	</div>
+{/if}
 
 <style>
 	.relative:focus-within .absolute,
