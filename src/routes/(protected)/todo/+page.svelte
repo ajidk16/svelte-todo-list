@@ -166,9 +166,9 @@
 					<h2 class="text-sm font-semibold tracking-wide text-slate-700 uppercase">
 						{dateFilter.find((filter) => filter.value === selectedFilter)?.label}
 					</h2>
-					<span class="text-xs text-slate-500">{todos.length} tugas</span>
+					<span class="text-xs text-slate-500">{todos?.length} tugas</span>
 				</div>
-				{#if data.todos.data.length === 0}
+				{#if data.todos.data?.length === 0}
 					<div class="mx-auto mt-16 max-w-7xl px-4 sm:px-6 lg:px-8">
 						<div
 							class="rounded-2xl border border-dotted border-slate-200 bg-white p-6 text-center text-slate-700"
@@ -293,7 +293,7 @@
 			<div class="rounded-2xl border border-slate-200 bg-white p-5 shadow-soft">
 				<h3 class="text-sm font-semibold text-slate-700">Ringkas Status</h3>
 				<ul class="mt-3 space-y-2 text-sm">
-					{#if todoStatus.length > 0}
+					{#if todoStatus?.length > 0}
 						{#each todoStatus as status}
 							<li class="flex items-center justify-between">
 								<span class="inline-flex items-center gap-2"
@@ -302,7 +302,7 @@
 									{status.label}</span
 								>
 								<span class="font-medium">
-									{status.todos.length ?? 0}
+									{status.todos?.length ?? 0}
 								</span>
 							</li>
 						{/each}
@@ -315,7 +315,7 @@
 			<div class="rounded-2xl border border-slate-200 bg-white p-5 shadow-soft">
 				<h3 class="text-sm font-semibold text-slate-700">Tag Populer</h3>
 				<div class="mt-3 flex flex-wrap gap-2">
-					{#if tags.length > 0}
+					{#if tags?.length > 0}
 						{#each tags as tag}
 							<span
 								class="inline-flex items-center rounded-full px-3 py-1 text-xs font-medium"
@@ -406,7 +406,7 @@
 					const tags = (e.target as HTMLInputElement).value
 						.split(',')
 						.map((tag) => tag.trim())
-						.filter((tag) => tag.length > 0)
+						.filter((tag) => tag?.length > 0)
 						.map((tag) => ({
 							name: tag,
 							color: `#${Math.floor(Math.random() * 16777215)
@@ -427,7 +427,7 @@
 				Contoh: <span class="font-medium">frontend, ecommerce, responsive</span>
 			</p>
 		</div>
-		{#if formData.todosTags && formData.todosTags.length > 0}
+		{#if formData.todosTags && formData.todosTags?.length > 0}
 			<div class="mt-2 flex flex-wrap gap-2">
 				{#each formData.todosTags as tagObj}
 					<span

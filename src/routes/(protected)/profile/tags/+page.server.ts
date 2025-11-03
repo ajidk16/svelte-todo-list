@@ -28,10 +28,12 @@ export const actions = {
 		const formData = await request.formData();
 		const name = formData.get('name');
 		const color = formData.get('color');
+		const status = formData.get('status');
 
 		const newTag = {
 			name,
-			color
+			color,
+			status
 		};
 
 		const createdTag = await api('/tags', {
@@ -50,10 +52,12 @@ export const actions = {
 		const id = formData.get('id');
 		const name = formData.get('name');
 		const color = formData.get('color');
+		const status = formData.get('status');
 
 		const updatedTag = {
 			name,
-			color
+			color,
+			status
 		};
 
 		const result = await api(`/tags/${id}`, {

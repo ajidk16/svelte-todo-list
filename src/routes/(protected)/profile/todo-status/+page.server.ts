@@ -30,6 +30,7 @@ export const actions = {
 		const label = formData.get('label');
 		const color = formData.get('color');
 		const sortOrder = formData.get('sortOrder') || 0;
+		const status = formData.get('status') === 'true';
 
 		if (!name || !label || !color) {
 			return { error: 'Name, label, and color are required.' };
@@ -40,6 +41,7 @@ export const actions = {
 			label,
 			color,
 			sortOrder: Number(sortOrder)
+			,status
 		};
 
 		const createdTodoStatus = await api('/todo-status', {
@@ -59,6 +61,7 @@ export const actions = {
 		const name = formData.get('name');
 		const label = formData.get('label');
 		const color = formData.get('color');
+		const status = formData.get('status') === 'true';
 		const sortOrder = formData.get('sortOrder') || 0;
 
 		if (!id || !name || !label || !color) {
@@ -69,6 +72,7 @@ export const actions = {
 			name,
 			label,
 			color,
+			status,
 			sortOrder: Number(sortOrder)
 		};
 

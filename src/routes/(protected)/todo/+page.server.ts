@@ -16,14 +16,14 @@ export const load = async ({ url, cookies }) => {
 				'Content-Type': 'application/json'
 			}
 		}),
-		api('/tags', {
+		api('/tags?status=true', {
 			method: 'GET',
 			headers: {
 				Authorization: `Bearer ${cookies.get('auth')}`,
 				'Content-Type': 'application/json'
 			}
 		}),
-		api('/todo-status', {
+		api('/todo-status?status=true', {
 			method: 'GET',
 			headers: {
 				Authorization: `Bearer ${cookies.get('auth')}`,

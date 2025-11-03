@@ -2,7 +2,7 @@ import { api } from '$lib/utils/api.js';
 import { error } from '@sveltejs/kit';
 
 export const load = async ({ cookies }) => {
-	const kanban = await api('/todo-status', {
+	const kanban = await api('/todo-status?status=true', {
 		method: 'GET',
 		headers: {
 			Authorization: `Bearer ${cookies.get('auth')}`,

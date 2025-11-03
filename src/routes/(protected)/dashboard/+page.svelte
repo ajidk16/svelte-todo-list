@@ -43,7 +43,6 @@
 	{:else}
 		<StatsCards todosStatus={todoStatus} />
 	{/if}
-	<!-- <StatsCards todosStatus={todoStatus} /> -->
 </div>
 
 {#if modal}

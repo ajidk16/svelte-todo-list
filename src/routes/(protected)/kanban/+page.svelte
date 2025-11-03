@@ -93,6 +93,8 @@
 	function onDragOver(event: DragEvent) {
 		event.preventDefault();
 	}
+
+	console.log('Initial columns:', columns);
 </script>
 
 <div>
@@ -121,10 +123,10 @@
 	<!-- Board -->
 	<div
 		class="mx-auto grid max-w-7xl gap-4 px-4 pt-6 sm:grid-cols-2 lg:grid-cols-{String(
-			columns.length
+			columns?.length
 		)}"
 	>
-		{#if columns.length === 0}
+		{#if columns?.length === undefined || columns?.length === 0}
 			<section
 				class="col-span-full flex h-[60vh] flex-col items-center justify-center rounded-2xl bg-white shadow-inner ring-1 ring-gray-200"
 			>
@@ -163,7 +165,7 @@
 							></span>
 							<h3 class="font-semibold">{col.label}</h3>
 						</div>
-						<span class="text-xs text-gray-500">{col.todos.length} item</span>
+						<span class="text-xs text-gray-500">{col.todos?.length} item</span>
 					</header>
 					<div class="space-y-3 overflow-auto p-3">
 						{#each col.todos as card}

@@ -17,7 +17,7 @@
 
 	let tags = $derived(data.tags.data);
 
-	type Row = { id: string; color: string; name: string; status: string };
+	type Row = { id: string; color: string; name: string; status: boolean };
 
 	const columns: Column<Row>[] = [
 		{
@@ -33,14 +33,8 @@
 			sortable: true,
 			render: (r) =>
 				`<span class="px-2 py-0.5 rounded-full text-xs ${
-					r.status === 'menunggu'
-						? 'bg-amber-100 text-amber-700'
-						: r.status === 'diproses'
-							? 'bg-sky-100 text-sky-700'
-							: r.status === 'selesai'
-								? 'bg-emerald-100 text-emerald-700'
-								: 'bg-rose-100 text-rose-700'
-				}">${r.status}</span>`
+					r.status === true ? 'bg-green-100 text-green-700' : 'bg-rose-100 text-rose-700'
+				}">${r.status ? 'Aktif' : 'Tidak Aktif'}</span>`
 		},
 		{
 			key: 'aksi',
@@ -52,7 +46,7 @@
 				onEdit: () => {
 					modal = true;
 					isEditing = true;
-					editingStatus = { id: row.id, name: row.name, color: row.color };
+					editingStatus = { id: row.id, name: row.name, color: row.color, status: row.status };
 				},
 				onDelete: () => console.log('delete', row)
 			})
@@ -101,7 +95,7 @@
 	}
 
 	let modal = $state(false);
-	let editingStatus = $state({ id: '', name: '', color: '#ffffff' });
+	let editingStatus = $state({ id: '', name: '', color: '#ffffff', status: true });
 	let isEditing = $state(false);
 </script>
 
@@ -114,7 +108,7 @@
 				onClick={() => {
 					modal = true;
 					isEditing = false;
-					editingStatus = { id: '', name: '', color: '#ffffff' };
+					editingStatus = { id: '', name: '', color: '#ffffff', status: true };
 				}}
 			>
 				Tambah tags
@@ -150,7 +144,7 @@
 				use:enhance={() => {
 					modal = false;
 					isEditing = false;
-					editingStatus = { id: '', name: '', color: '#ffffff' };
+					editingStatus = { id: '', name: '', color: '#ffffff', status: true };
 				}}
 				class="space-y-4"
 			>
@@ -176,6 +170,33 @@
 						class="w-full rounded-lg border border-slate-300 px-3 py-2"
 						bind:value={editingStatus.color}
 					/>
+
+					<label class="mb-1 block font-medium" for="status">Status</label>
+					<!-- radio status -->
+					<div class="space-x-4">
+						<label class="inline-flex items-center">
+							<input
+								type="radio"
+								name="status"
+								value={true}
+								class="form-radio"
+								bind:group={editingStatus.status}
+								checked={editingStatus.status === true}
+							/>
+							<span class="ml-2">Aktif</span>
+						</label>
+						<label class="inline-flex items-center">
+							<input
+								type="radio"
+								name="status"
+								value={false}
+								class="form-radio"
+								bind:group={editingStatus.status}
+								checked={editingStatus.status === false}
+							/>
+							<span class="ml-2">Tidak Aktif</span>
+						</label>
+					</div>
 				</div>
 				<div class="flex justify-end space-x-2">
 					<Button
@@ -183,7 +204,7 @@
 						onClick={() => {
 							modal = false;
 							isEditing = false;
-							editingStatus = { id: '', name: '', color: '#ffffff' };
+							editingStatus = { id: '', name: '', color: '#ffffff', status: true };
 						}}>Batal</Button
 					>
 					<Button variant="primary" type="submit">

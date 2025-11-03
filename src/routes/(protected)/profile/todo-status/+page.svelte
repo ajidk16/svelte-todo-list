@@ -22,7 +22,7 @@
 		color: string;
 		name: string;
 		label: string;
-		status?: string;
+		status: boolean;
 		sortOrder: number;
 	};
 
@@ -41,14 +41,8 @@
 			sortable: true,
 			render: (r) =>
 				`<span class="px-2 py-0.5 rounded-full text-xs ${
-					r.status === 'menunggu'
-						? 'bg-amber-100 text-amber-700'
-						: r.status === 'diproses'
-							? 'bg-sky-100 text-sky-700'
-							: r.status === 'selesai'
-								? 'bg-emerald-100 text-emerald-700'
-								: 'bg-rose-100 text-rose-700'
-				}">${r.status}</span>`
+					r.status === true ? 'bg-green-100 text-green-700' : 'bg-rose-100 text-rose-700'
+				}">${r.status ? 'Aktif' : 'Tidak Aktif'}</span>`
 		},
 		{
 			key: 'aksi',
@@ -65,6 +59,7 @@
 						name: row.name,
 						label: row.label,
 						color: row.color,
+						status: row.status,
 						sortOrder: row.sortOrder
 					};
 				},
@@ -114,7 +109,7 @@
 		debouncedGoto(query);
 	}
 
-	const editing = { id: '', name: '', label: '', color: '#ffffff', sortOrder: 0 };
+	const editing = { id: '', name: '', label: '', status: true, color: '#ffffff', sortOrder: 0 };
 
 	let modal = $state(false);
 	let editingStatus = $state(editing);
@@ -210,19 +205,45 @@
 						bind:value={editingStatus.sortOrder}
 						placeholder="e.g., 1"
 					/>
-				</div>
-				<div class="flex justify-end space-x-2">
-					<Button
-						variant="secondary"
-						onClick={() => {
-							modal = false;
-							isEditing = false;
-							editingStatus = editing;
-						}}>Batal</Button
-					>
-					<Button variant="primary" type="submit">
-						{isEditing ? 'Simpan' : 'Tambah'}
-					</Button>
+					<label for="status">Status</label>
+					<!-- radio status -->
+					<div class="space-x-4">
+						<label class="inline-flex items-center">
+							<input
+								type="radio"
+								name="status"
+								value={true}
+								class="form-radio"
+								bind:group={editingStatus.status}
+								checked={editingStatus.status === true}
+							/>
+							<span class="ml-2">Aktif</span>
+						</label>
+						<label class="inline-flex items-center">
+							<input
+								type="radio"
+								name="status"
+								value={false}
+								class="form-radio"
+								bind:group={editingStatus.status}
+								checked={editingStatus.status === false}
+							/>
+							<span class="ml-2">Tidak Aktif</span>
+						</label>
+					</div>
+					<div class="flex justify-end space-x-2">
+						<Button
+							variant="secondary"
+							onClick={() => {
+								modal = false;
+								isEditing = false;
+								editingStatus = editing;
+							}}>Batal</Button
+						>
+						<Button variant="primary" type="submit">
+							{isEditing ? 'Simpan' : 'Tambah'}
+						</Button>
+					</div>
 				</div>
 			</form>
 		</Modal>
