@@ -5,7 +5,6 @@
 	import VerifyNotice from '../../../modules/todos/components/verify-notice.svelte';
 	import { api } from '$lib/utils/api';
 	import { Button, Modal } from '$lib/components/shared';
-	import { goto } from '$app/navigation';
 
 	let { data } = $props();
 	const todoStatus = $derived(data.todoStatus.data);
@@ -20,7 +19,8 @@
 		const res = await api(`/otp/verify?otp=${otp}`, {
 			method: 'POST',
 			headers: {
-				'Content-Type': 'application/json'
+				'Content-Type': 'application/json',
+				Authorization: `Bearer ${data.cookies}`
 			},
 			body: JSON.stringify({
 				otp: otp,
