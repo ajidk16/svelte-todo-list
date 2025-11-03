@@ -11,39 +11,46 @@
 	const todoStatus = $derived(data.todoStatus.data);
 
 	const otp = page.url.searchParams.get('otp');
+	const to = page.url.searchParams.get('to');
 
 	let modal = $state(false);
 
 	onMount(async () => {
-		if (otp !== null) {
-			const res = await api(`/otp/verify?otp=${otp}`, {
-				method: 'GET'
-			});
+		if (otp === null) return;
+		const res = await api(`/otp/verify?otp=${otp}`, {
+			method: 'POST',
+			headers: {
+				'Content-Type': 'application/json'
+			},
+			body: JSON.stringify({
+				otp: otp,
+				to: to
+			})
+		});
 
-			// Update cookie userProfile setelah verifikasi berhasil
-			if (res.status === 200 && res.data) {
-				const userProfile = {
-					id: res.data.data.id,
-					username: res.data.data.username,
-					email: res.data.data.email,
-					verified: res.data.data.verifiedEmail
-				};
+		// Update cookie userProfile setelah verifikasi berhasil
+		if (res.status === 200 && res.data) {
+			const userProfile = {
+				id: res.data.data.id,
+				username: res.data.data.username,
+				email: res.data.data.email,
+				verified: res.data.data.verifiedEmail
+			};
 
-				console.log('cek user profile', userProfile);
+			console.log('cek user profile', userProfile);
 
-				document.cookie = `userProfile=${encodeURIComponent(
-					JSON.stringify(userProfile)
-				)}; path=/; max-age=${60 * 60 * 24 * 7}; SameSite=None; Secure`;
+			document.cookie = `userProfile=${encodeURIComponent(
+				JSON.stringify(userProfile)
+			)}; path=/; max-age=${60 * 60 * 24 * 7}; SameSite=None; Secure`;
 
-				// alert('Akun Anda telah berhasil diverifikasi.');
-				modal = true;
-			}
+			// alert('Akun Anda telah berhasil diverifikasi.');
+			modal = true;
 		}
 	});
 </script>
 
 <div>
-	{#if data.todoStatus.status === 403}
+	{#if data.user.verified === false}
 		<VerifyNotice user={data.user} />
 	{:else}
 		<StatsCards todosStatus={todoStatus} />
@@ -73,8 +80,7 @@
 			<Button
 				className="mt-4 w-full bg-green-600 hover:bg-green-700 text-white font-semibold py-2 rounded shadow"
 				onClick={() => {
-					// window.location.reload();
-					goto('/dashboard');
+					window.location.reload();
 					modal = false;
 				}}
 			>

@@ -5,7 +5,7 @@
 </script>
 
 <div class="flex min-h-screen flex-col bg-slate-50 text-slate-800 antialiased">
-	<Navbar user={data.user} />
+	<Navbar user={data.me.data} />
 
 	<!-- svelte-ignore slot_element_deprecated -->
 	<main class="flex-1">

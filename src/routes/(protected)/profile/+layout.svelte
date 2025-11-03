@@ -1,7 +1,7 @@
 <script lang="ts">
 	import { page } from '$app/state';
 
-	const { data } = $props();
+	const { data, children } = $props();
 
 	let listAside = [
 		// { title: 'Overview', url: '/profile' },
@@ -11,7 +11,6 @@
 </script>
 
 <div class="flex min-h-screen flex-col md:flex-row">
-	<!-- Sidebar -->
 	<aside
 		class="hidden w-full shrink-0 flex-row items-center gap-4 bg-white p-4 shadow-md md:flex md:w-64 md:flex-col md:items-stretch md:p-6"
 	>
@@ -47,6 +46,6 @@
 
 	<!-- Main Content -->
 	<main class="flex-1 p-4 md:p-8">
-		<slot />
+		{@render children()}
 	</main>
 </div>

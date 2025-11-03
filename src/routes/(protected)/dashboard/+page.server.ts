@@ -13,19 +13,23 @@ export const load = async ({ cookies }) => {
 	// 	});
 	// }
 
+	const profile = await api('/auth/profile', {
+		method: 'GET',
+		headers: {
+			Authorization: `Bearer ${cookies.get('auth')}`,
+			'Content-Type': 'application/json'
+		}
+	});
+
 	return {
 		todoStatus,
-		user: JSON.parse(cookies.get('userProfile') || 'null')
+		user: profile.data
 	};
 };
 
 export const actions = {
 	verifyEmail: async ({ cookies }) => {
 		const authToken = cookies.get('auth');
-
-		console.log('authToken:', authToken);
-
-		console.log('verifyEmail action called', authToken);
 
 		const res = await api('/otp/send', {
 			method: 'GET',
